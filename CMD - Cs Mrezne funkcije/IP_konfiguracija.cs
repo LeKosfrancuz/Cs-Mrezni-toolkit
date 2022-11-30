@@ -66,7 +66,7 @@ namespace MrezneFunkcije.IP
                     }
                 if (indeksOdabranogAdaptera == -1)
                 {
-                    CMDoutput = CMD.Command($"netsh interface ipv{verzijaProtokola} show addresses");
+                    CMDoutput = CMD.Command($"netsh interface ipv{verzijaProtokola} show addresses \"{imeAdaptera}\"");
                     if (CMDoutput.Contains(imeAdaptera)) return "Adapter je pronađen, ali ipconfig ne dopušta konfiguraciju";
 
                     return "Nije pronađen mrežni adapter!"; 
@@ -100,25 +100,40 @@ namespace MrezneFunkcije.IP
             if (imeAdaptera == "")
                 return false;
 
+            string[] s = CMDoutput.Split("\r\n");
 
-            string[] cmdOutputSplit = CMDoutput.Split("Configuration for interface");
-            int numberOfAdaptersFound = cmdOutputSplit.Count();
-
-            int indeksOdabranogAdaptera = -1;
-            for (int i = 0; i < numberOfAdaptersFound; i++)
-                if (cmdOutputSplit[i].Contains(imeAdaptera))
-                {
-                    indeksOdabranogAdaptera = i;
-                    break;
-                }
-            if (indeksOdabranogAdaptera == -1) return false;
-
-
-            string[] s = cmdOutputSplit[indeksOdabranogAdaptera].Split("\r\n");
-
-            if (s[1].Contains("Yes")) return true;
+            if (s.Count() >= 3 && s[2].Contains("Yes")) return true;
             return false;
 
         }
+
+        public static string GetMask(string imeAdaptera = "", int verzijaProtokola = 4)
+        {
+            string komanda;
+            if (verzijaProtokola == 6) komanda = $"netsh interface ipv6 show interface \"{imeAdaptera}\"";
+            else if (verzijaProtokola == 4) komanda = $"netsh interface ipv4 show addresses \"{imeAdaptera}\"";
+            else return "Nepoznat protokol!";
+
+            string CMDOutput = CMD.Command(komanda);
+            string subnetPrefix = "";
+
+            if (verzijaProtokola == 4 && CMDOutput.Split("/").Count() >= 2) subnetPrefix = "/" + CMDOutput.Split("/")[1].Split(" ")[0];
+            else if (verzijaProtokola == 6)
+            {
+                string[] CMDOutLinije = CMDOutput.Split("\r\n");
+                for (int i = 0; i < CMDOutLinije.Count(); i++)
+                {
+                    if (CMDOutLinije[i].Contains("Site Prefix Length"))
+                    {
+                        subnetPrefix = "/" + CMDOutLinije[i].Split(": ")[1].Split("\r\n")[0];
+                    }
+                }
+            }
+
+            return subnetPrefix;
+
+        }
+
+        
     }
 }

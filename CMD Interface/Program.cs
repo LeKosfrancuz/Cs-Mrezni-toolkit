@@ -22,11 +22,14 @@ class Program
 
         var a = IP_konfiguracija.GetIP(b[odabir-1].Name);
 
-        Console.Write($"Na adapteru {b[odabir-1].Name} je IPv4 adresa: {a}\n");
+        Console.Write($"Na adapteru {b[odabir-1].Name} je IPv4 adresa: {a}{IP_konfiguracija.GetMask(b[odabir - 1].Name)}\n");
 
         a = IP_konfiguracija.GetIP(b[odabir - 1].Name, 6);
-        Console.Write($"Na adapteru {b[odabir - 1].Name} je IPv6 adresa: {a}\n");
-        Console.WriteLine($"DHCP enabled: {IP_konfiguracija.GetDHCP(b[odabir-1].Name)}");
+        Console.Write($"Na adapteru {b[odabir - 1].Name} je IPv6 adresa: {a}{IP_konfiguracija.GetMask(b[odabir - 1].Name, 6)}\n");
+
+        Console.WriteLine($"DHCP enabled: {IP_konfiguracija.GetDHCP(b[odabir - 1].Name)}");
+
+
 
     }
 }
