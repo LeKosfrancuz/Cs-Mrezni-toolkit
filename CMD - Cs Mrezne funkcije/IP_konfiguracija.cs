@@ -134,6 +134,46 @@ namespace MrezneFunkcije.IP
 
         }
 
-        
+        public static string GetDfltGateway(string imeAdaptera = "", int verzijaProtokola = 4)
+        {
+            string CMDOutput = CMD.Command("ipconfig /all");
+            string gateway = "";
+
+            int nBSN = -1; // Jer je zadnji char uvijek \n
+            foreach (char c in CMDOutput)
+                if (c == '\n') nBSN++;
+
+            if (imeAdaptera == "")
+                return "";
+
+            CMDOutput = CMD.Command($"ipconfig");
+
+            string[] cmdOutputSplit = CMDOutput.Split("adapter");
+            int numberOfAdaptersFound = cmdOutputSplit.Count();
+
+            int indeksOdabranogAdaptera = -1;
+            for (int i = 0; i < numberOfAdaptersFound; i++)
+                if (cmdOutputSplit[i].Contains(imeAdaptera))
+                {
+                    indeksOdabranogAdaptera = i;
+                    break;
+                }
+            if (indeksOdabranogAdaptera == -1) return "";
+
+
+            string[] s = cmdOutputSplit[indeksOdabranogAdaptera].Split(": ");
+
+            for (int i = 1; i < s.Count(); i++)
+                if (s[i - 1].Contains($"Default Gateway"))
+                {
+                    gateway = s[i].Split('\r')[0];
+                }
+
+            return gateway;
+        }
+
+        public static int SetIPv4() { return 0;  }
     }
 }
+
+
