@@ -9,6 +9,8 @@ namespace MrezneFunkcije.IP
 {
     public static class IP_konfiguracija
     {
+        public static NetworkInterface[] a = GetEAdapters();
+
         public static NetworkInterface[] GetEAdapters()
         {
             return NetworkInterface.GetAllNetworkInterfaces();

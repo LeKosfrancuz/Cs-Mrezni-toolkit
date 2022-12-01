@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMD - Cs Mrezne funkcije", "CMD - Cs Mrezne funkcije\CMD - Cs Mrezne funkcije.csproj", "{A1BEEA00-4B70-4CB2-8545-64FE4B1DF19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMD - Cs Mrezne funkcije", "CMD - Cs Mrezne funkcije\CMD - Cs Mrezne funkcije.csproj", "{A1BEEA00-4B70-4CB2-8545-64FE4B1DF19A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CMD Interface", "CMD Interface\CMD Interface.csproj", "{5F835BA8-172A-48A0-A34C-321CC504086D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMD Interface", "CMD Interface\CMD Interface.csproj", "{5F835BA8-172A-48A0-A34C-321CC504086D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI Interface", "GUI Interface\GUI Interface.csproj", "{2B5F90B0-D303-423F-82E9-8D7C6DDA0751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5F835BA8-172A-48A0-A34C-321CC504086D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F835BA8-172A-48A0-A34C-321CC504086D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F835BA8-172A-48A0-A34C-321CC504086D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B5F90B0-D303-423F-82E9-8D7C6DDA0751}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B5F90B0-D303-423F-82E9-8D7C6DDA0751}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B5F90B0-D303-423F-82E9-8D7C6DDA0751}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B5F90B0-D303-423F-82E9-8D7C6DDA0751}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
