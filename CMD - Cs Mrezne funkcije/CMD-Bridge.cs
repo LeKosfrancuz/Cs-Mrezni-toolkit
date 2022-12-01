@@ -98,6 +98,8 @@ namespace CMDCs
             }
             else
             {
+                if (result.stderr.Length < 5)
+                    return result.stdout.ToString();
                 return result.stderr;
             }
         }

@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Reflection.Metadata;
 using System.Runtime.Serialization.Formatters;
 
 namespace MrezneFunkcije.IP
@@ -172,7 +173,68 @@ namespace MrezneFunkcije.IP
             return gateway;
         }
 
-        public static int SetIPv4() { return 0;  }
+        public static string ConvertPrefixToMask(string prefix, int verzijaProtokola = 4)
+        {
+            if (prefix == null || prefix == "") return "Nepoznata";
+            string mask = "";
+
+            if (verzijaProtokola == 4)
+            {
+                uint maskInt = 0xffffffff;
+
+                int prefixNum = 32 - int.Parse(prefix.Split("/")[1]);
+
+
+                maskInt = maskInt >> prefixNum -1 >> 1 << prefixNum -1 << 1;
+
+
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i != 0) mask += ".";
+                    uint bytemm =
+                        (maskInt & 0xff000000) >> 32-8;
+                    mask += bytemm.ToString();
+                    maskInt <<= 8;
+                }
+
+            } else if (verzijaProtokola == 6)
+            {
+                UInt64 maskInt1 = UInt64.Parse("ffffffffffffffff", System.Globalization.NumberStyles.AllowHexSpecifier);
+                UInt64 maskInt2 = UInt64.Parse("ffffffffffffffff", System.Globalization.NumberStyles.AllowHexSpecifier);
+
+                int prefixNum = 128 - int.Parse(prefix.Split("/")[1]);
+
+                int prefixNum2 = 0;
+
+
+                maskInt2 = maskInt2 >> prefixNum -1 >> 1 << prefixNum -1 << 1;
+                if (prefixNum > 64)
+                {
+                    prefixNum2 = prefixNum - 64;
+                    maskInt1 = maskInt1 >> prefixNum2 - 1 >> 1 << prefixNum2 - 1 << 1;
+                }
+
+
+                for (int i = 0; i < 16; i++)
+                {
+                    if (i == 8) maskInt1 = maskInt2;
+                    if (i != 0) mask += ".";
+                    UInt64 bytemm =
+                        (maskInt1 & UInt64.Parse("ff", System.Globalization.NumberStyles.AllowHexSpecifier) << 56) >> 64 - 8;
+                    mask += bytemm.ToString();
+                    maskInt1 <<= 8;
+                }
+            }
+
+            return mask;
+        }
+
+        public static int SetIPv4(string InterfaceName, string NewIP, string SubnetMask, string Gateway) {
+            if (SubnetMask == "Nepoznata") return -1;
+            string CMDOutput = CMD.Command($"netsh interface ipv4 set address name=\"{InterfaceName}\" static {NewIP} {SubnetMask} {Gateway}");
+            if (CMDOutput.Contains("Run as admin")) return -2;
+            return 0;  
+        }
     }
 }
 
