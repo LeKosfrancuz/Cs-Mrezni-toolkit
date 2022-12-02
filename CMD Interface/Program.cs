@@ -8,7 +8,7 @@ using MrezneFunkcije.IP;
 class Program
 { 
     static void Main ()
-    {
+    { 
         int k = 1;
         var b = IP_konfiguracija.GetEAdapters();
         foreach (var bEl in b)

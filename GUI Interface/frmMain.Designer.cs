@@ -28,98 +28,109 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.adsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnOvan = new System.Windows.Forms.ToolStripButton();
+            this.glavniIzbornik = new System.Windows.Forms.MenuStrip();
+            this.alatiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alati_IpKonfiguracijaMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Alati_IpKonfiguracija_IPv4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.cmbInterface = new System.Windows.Forms.ToolStripComboBox();
-            this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.Alati_IpKonfiguracija_IPv6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.SubFormPanel = new System.Windows.Forms.Panel();
+            this.naslovnaGrupaZaSubForms = new System.Windows.Forms.GroupBox();
+            this.glavniIzbornik.SuspendLayout();
+            this.naslovnaGrupaZaSubForms.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // glavniIzbornik
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.glavniIzbornik.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.alatiMenuItem});
+            this.glavniIzbornik.Location = new System.Drawing.Point(0, 0);
+            this.glavniIzbornik.Name = "glavniIzbornik";
+            this.glavniIzbornik.Size = new System.Drawing.Size(800, 24);
+            this.glavniIzbornik.TabIndex = 0;
+            this.glavniIzbornik.Text = "menuStrip1";
             // 
-            // toolStripMenuItem1
+            // alatiMenuItem
             // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adsToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(43, 20);
-            this.toolStripMenuItem1.Text = "Alati";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            this.alatiMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.alati_IpKonfiguracijaMenuItem});
+            this.alatiMenuItem.Font = new System.Drawing.Font("Nirmala UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.alatiMenuItem.Name = "alatiMenuItem";
+            this.alatiMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.alatiMenuItem.Text = "&Alati";
             // 
-            // adsToolStripMenuItem
+            // alati_IpKonfiguracijaMenuItem
             // 
-            this.adsToolStripMenuItem.Name = "adsToolStripMenuItem";
-            this.adsToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.adsToolStripMenuItem.Text = "IP Konfiguracija";
-            // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnOvan,
+            this.alati_IpKonfiguracijaMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Alati_IpKonfiguracija_IPv4,
             this.toolStripSeparator1,
-            this.toolStripLabel1,
-            this.cmbInterface});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(800, 25);
-            this.toolStrip1.TabIndex = 1;
-            this.toolStrip1.Text = "toolStrip1";
+            this.Alati_IpKonfiguracija_IPv6});
+            this.alati_IpKonfiguracijaMenuItem.Name = "alati_IpKonfiguracijaMenuItem";
+            this.alati_IpKonfiguracijaMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alati_IpKonfiguracijaMenuItem.Text = "&IP Konfiguracija";
             // 
-            // btnOvan
+            // Alati_IpKonfiguracija_IPv4
             // 
-            this.btnOvan.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnOvan.Image = ((System.Drawing.Image)(resources.GetObject("btnOvan.Image")));
-            this.btnOvan.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnOvan.Name = "btnOvan";
-            this.btnOvan.Size = new System.Drawing.Size(23, 22);
-            this.btnOvan.Text = "toolStripButton1";
+            this.Alati_IpKonfiguracija_IPv4.Name = "Alati_IpKonfiguracija_IPv4";
+            this.Alati_IpKonfiguracija_IPv4.Size = new System.Drawing.Size(180, 22);
+            this.Alati_IpKonfiguracija_IPv4.Text = "IPv4";
+            this.Alati_IpKonfiguracija_IPv4.Click += new System.EventHandler(this.Alati_IpKonfiguracija_IPv4_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // toolStripLabel1
+            // Alati_IpKonfiguracija_IPv6
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(135, 22);
-            this.toolStripLabel1.Text = "Mrežna kartica / adapter";
+            this.Alati_IpKonfiguracija_IPv6.Name = "Alati_IpKonfiguracija_IPv6";
+            this.Alati_IpKonfiguracija_IPv6.Size = new System.Drawing.Size(180, 22);
+            this.Alati_IpKonfiguracija_IPv6.Text = "IPv6";
+            this.Alati_IpKonfiguracija_IPv6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
-            // cmbInterface
+            // SubFormPanel
             // 
-            this.cmbInterface.Name = "cmbInterface";
-            this.cmbInterface.Size = new System.Drawing.Size(121, 25);
-            this.cmbInterface.Click += new System.EventHandler(this.cmbInterface_Click);
+            this.SubFormPanel.AccessibleDescription = "Panel za sve sub formove";
+            this.SubFormPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.SubFormPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.SubFormPanel.BackColor = System.Drawing.Color.MistyRose;
+            this.SubFormPanel.Location = new System.Drawing.Point(6, 24);
+            this.SubFormPanel.Name = "SubFormPanel";
+            this.SubFormPanel.Size = new System.Drawing.Size(764, 441);
+            this.SubFormPanel.TabIndex = 2;
+            // 
+            // naslovnaGrupaZaSubForms
+            // 
+            this.naslovnaGrupaZaSubForms.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.naslovnaGrupaZaSubForms.BackColor = System.Drawing.Color.Transparent;
+            this.naslovnaGrupaZaSubForms.Controls.Add(this.SubFormPanel);
+            this.naslovnaGrupaZaSubForms.Location = new System.Drawing.Point(12, 27);
+            this.naslovnaGrupaZaSubForms.Name = "naslovnaGrupaZaSubForms";
+            this.naslovnaGrupaZaSubForms.Size = new System.Drawing.Size(776, 471);
+            this.naslovnaGrupaZaSubForms.TabIndex = 3;
+            this.naslovnaGrupaZaSubForms.TabStop = false;
+            this.naslovnaGrupaZaSubForms.Text = "Nije odabrana funkcija";
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(800, 510);
+            this.Controls.Add(this.naslovnaGrupaZaSubForms);
+            this.Controls.Add(this.glavniIzbornik);
+            this.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.MainMenuStrip = this.glavniIzbornik;
             this.Name = "frmMain";
             this.Text = "Mrežni toolkit";
             this.Load += new System.EventHandler(this.frmMain_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.glavniIzbornik.ResumeLayout(false);
+            this.glavniIzbornik.PerformLayout();
+            this.naslovnaGrupaZaSubForms.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,13 +138,13 @@
 
         #endregion
 
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem adsToolStripMenuItem;
-        private ToolStrip toolStrip1;
-        private ToolStripButton btnOvan;
+        private MenuStrip glavniIzbornik;
+        private ToolStripMenuItem alatiMenuItem;
+        private ToolStripMenuItem alati_IpKonfiguracijaMenuItem;
+        private Panel SubFormPanel;
+        private GroupBox naslovnaGrupaZaSubForms;
+        private ToolStripMenuItem Alati_IpKonfiguracija_IPv4;
         private ToolStripSeparator toolStripSeparator1;
-        private ToolStripLabel toolStripLabel1;
-        private ToolStripComboBox cmbInterface;
+        private ToolStripMenuItem Alati_IpKonfiguracija_IPv6;
     }
 }

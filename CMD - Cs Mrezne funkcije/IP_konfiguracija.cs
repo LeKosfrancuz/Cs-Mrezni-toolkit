@@ -137,6 +137,16 @@ namespace MrezneFunkcije.IP
 
         }
 
+        public static (string, string, string, string) SeperateMask(string mask)
+        {
+            string[] maskSplit = mask.Split('.', 4);
+
+            if (maskSplit.Length >= 4)
+            return (maskSplit[0], maskSplit[1], maskSplit[2], maskSplit[3]);
+
+            return ("- / -", "", "", "");
+        }
+
         public static string GetDfltGateway(string imeAdaptera = "", int verzijaProtokola = 4)
         {
             string CMDOutput = CMD.Command("ipconfig /all");
