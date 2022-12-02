@@ -11,32 +11,44 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MrezneFunkcije.IP;
 
-namespace GUI_Interface
+namespace GUI_Interface;
+
+public partial class frmMain : Form
 {
-    public partial class frmMain : Form
+    public static Form AktivanForm { get; set; }
+    public frmMain()
     {
-        public frmMain()
+        InitializeComponent();
+    }
+
+    private void OtvoriSubForm(Form SubForm)
+    {
+        if (AktivanForm != null)
         {
-            InitializeComponent();
+            AktivanForm.Close();
         }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
+        AktivanForm = SubForm;
 
-        }
+        SubForm.TopLevel = false;
+        SubForm.FormBorderStyle = FormBorderStyle.None;
+        SubForm.Dock = DockStyle.Fill;
 
-        private void frmMain_Load(object sender, EventArgs e)
-        {
-            NetworkInterface[] networkInterfaces = IP_konfiguracija.GetEAdapters();
-            int nIn = networkInterfaces.Count();
+        this.SubFormPanel.Controls.Add(SubForm);
 
-            for (int i = 0; i < nIn; i++)
-                this.cmbInterface.Items.Add(networkInterfaces[i].Name);
-        }
+        SubForm.BringToFront();
+        SubForm.Show();
 
-        private void cmbInterface_Click(object sender, EventArgs e)
-        {
+    }
 
-        }
+    private void frmMain_Load(object sender, EventArgs e)
+    {
+        OtvoriSubForm(new IpKonfiguracijaForm());
+    }
+
+    private void Alati_IpKonfiguracija_IPv4_Click(object sender, EventArgs e)
+    {
+        OtvoriSubForm(new IpKonfiguracijaForm());
+        naslovnaGrupaZaSubForms.Text = alati_IpKonfiguracijaMenuItem.Text;
     }
 }
