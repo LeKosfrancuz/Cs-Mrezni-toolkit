@@ -16,6 +16,13 @@ namespace MrezneFunkcije.IP
             return NetworkInterface.GetAllNetworkInterfaces();
         }
 
+        public static NetworkInterface GetEAdapters(int index)
+        {
+            return NetworkInterface.GetAllNetworkInterfaces()[index];
+        }
+
+
+
         public static IPAddress[] GetIPs(bool? IPv4Only)
         {
             if (IPv4Only == null) IPv4Only = false;
@@ -72,7 +79,7 @@ namespace MrezneFunkcije.IP
                     CMDoutput = CMD.Command($"netsh interface ipv{verzijaProtokola} show addresses \"{imeAdaptera}\"");
                     if (CMDoutput.Contains(imeAdaptera)) return "Adapter je pronađen, ali ipconfig ne dopušta konfiguraciju";
 
-                    return "Nije pronađen mrežni adapter!"; 
+                    return "Nepoznata"; 
                 }
 
 

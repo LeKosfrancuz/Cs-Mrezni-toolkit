@@ -43,12 +43,16 @@ public partial class frmMain : Form
 
     private void frmMain_Load(object sender, EventArgs e)
     {
-        OtvoriSubForm(new IpKonfiguracijaForm());
+        progressBarStrip.Visible = true;
+        progressBar.Visible = false;
+        ProgressBarLable.Visible = false;
+        
+        //OtvoriSubForm(new IpKonfiguracijaForm(progressBarStrip));
     }
 
     private void Alati_IpKonfiguracija_IPv4_Click(object sender, EventArgs e)
     {
-        OtvoriSubForm(new IpKonfiguracijaForm());
+        OtvoriSubForm(new IpKonfiguracijaForm(progressBar));
         naslovnaGrupaZaSubForms.Text = alati_IpKonfiguracijaMenuItem.Text;
     }
 }

@@ -36,11 +36,12 @@
             this.mreznaMaskaLable = new System.Windows.Forms.Label();
             this.mreznaMaskaText2 = new System.Windows.Forms.TextBox();
             this.mreznaMaskaText3 = new System.Windows.Forms.TextBox();
-            this.mreznaMaskaText4 = new System.Windows.Forms.TextBox();
             this.ipv4Text1 = new System.Windows.Forms.TextBox();
             this.ipv4Text2 = new System.Windows.Forms.TextBox();
             this.ipv4Text3 = new System.Windows.Forms.TextBox();
             this.ipv4Text4 = new System.Windows.Forms.TextBox();
+            this.DhcpCheckBox = new System.Windows.Forms.CheckBox();
+            this.mreznaMaskaText4 = new System.Windows.Forms.TextBox();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -119,14 +120,6 @@
             this.mreznaMaskaText3.Size = new System.Drawing.Size(34, 18);
             this.mreznaMaskaText3.TabIndex = 7;
             // 
-            // mreznaMaskaText4
-            // 
-            this.mreznaMaskaText4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.mreznaMaskaText4.Location = new System.Drawing.Point(243, 149);
-            this.mreznaMaskaText4.Name = "mreznaMaskaText4";
-            this.mreznaMaskaText4.Size = new System.Drawing.Size(32, 18);
-            this.mreznaMaskaText4.TabIndex = 8;
-            // 
             // ipv4Text1
             // 
             this.ipv4Text1.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -159,12 +152,32 @@
             this.ipv4Text4.Size = new System.Drawing.Size(33, 18);
             this.ipv4Text4.TabIndex = 9;
             // 
+            // DhcpCheckBox
+            // 
+            this.DhcpCheckBox.AutoSize = true;
+            this.DhcpCheckBox.Location = new System.Drawing.Point(14, 76);
+            this.DhcpCheckBox.Name = "DhcpCheckBox";
+            this.DhcpCheckBox.Size = new System.Drawing.Size(111, 21);
+            this.DhcpCheckBox.TabIndex = 10;
+            this.DhcpCheckBox.Text = "DHCP Enabled";
+            this.DhcpCheckBox.UseVisualStyleBackColor = true;
+            this.DhcpCheckBox.CheckStateChanged += new System.EventHandler(this.DhcpCheckChanged);
+            // 
+            // mreznaMaskaText4
+            // 
+            this.mreznaMaskaText4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.mreznaMaskaText4.Location = new System.Drawing.Point(243, 149);
+            this.mreznaMaskaText4.Name = "mreznaMaskaText4";
+            this.mreznaMaskaText4.Size = new System.Drawing.Size(32, 18);
+            this.mreznaMaskaText4.TabIndex = 8;
+            // 
             // IpKonfiguracijaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(707, 385);
+            this.Controls.Add(this.DhcpCheckBox);
             this.Controls.Add(this.ipv4Text4);
             this.Controls.Add(this.ipv4Text3);
             this.Controls.Add(this.ipv4Text2);
@@ -197,10 +210,11 @@
         private Label mreznaMaskaLable;
         private TextBox mreznaMaskaText2;
         private TextBox mreznaMaskaText3;
-        private TextBox mreznaMaskaText4;
         private TextBox ipv4Text1;
         private TextBox ipv4Text2;
         private TextBox ipv4Text3;
         private TextBox ipv4Text4;
+        private CheckBox DhcpCheckBox;
+        private TextBox mreznaMaskaText4;
     }
 }

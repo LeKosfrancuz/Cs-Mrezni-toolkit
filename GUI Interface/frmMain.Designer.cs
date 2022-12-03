@@ -36,8 +36,12 @@
             this.Alati_IpKonfiguracija_IPv6 = new System.Windows.Forms.ToolStripMenuItem();
             this.SubFormPanel = new System.Windows.Forms.Panel();
             this.naslovnaGrupaZaSubForms = new System.Windows.Forms.GroupBox();
+            this.progressBarStrip = new System.Windows.Forms.StatusStrip();
+            this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.ProgressBarLable = new System.Windows.Forms.ToolStripStatusLabel();
             this.glavniIzbornik.SuspendLayout();
             this.naslovnaGrupaZaSubForms.SuspendLayout();
+            this.progressBarStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // glavniIzbornik
@@ -66,25 +70,25 @@
             this.toolStripSeparator1,
             this.Alati_IpKonfiguracija_IPv6});
             this.alati_IpKonfiguracijaMenuItem.Name = "alati_IpKonfiguracijaMenuItem";
-            this.alati_IpKonfiguracijaMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.alati_IpKonfiguracijaMenuItem.Size = new System.Drawing.Size(157, 22);
             this.alati_IpKonfiguracijaMenuItem.Text = "&IP Konfiguracija";
             // 
             // Alati_IpKonfiguracija_IPv4
             // 
             this.Alati_IpKonfiguracija_IPv4.Name = "Alati_IpKonfiguracija_IPv4";
-            this.Alati_IpKonfiguracija_IPv4.Size = new System.Drawing.Size(180, 22);
+            this.Alati_IpKonfiguracija_IPv4.Size = new System.Drawing.Size(96, 22);
             this.Alati_IpKonfiguracija_IPv4.Text = "IPv4";
             this.Alati_IpKonfiguracija_IPv4.Click += new System.EventHandler(this.Alati_IpKonfiguracija_IPv4_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(93, 6);
             // 
             // Alati_IpKonfiguracija_IPv6
             // 
             this.Alati_IpKonfiguracija_IPv6.Name = "Alati_IpKonfiguracija_IPv6";
-            this.Alati_IpKonfiguracija_IPv6.Size = new System.Drawing.Size(180, 22);
+            this.Alati_IpKonfiguracija_IPv6.Size = new System.Drawing.Size(96, 22);
             this.Alati_IpKonfiguracija_IPv6.Text = "IPv6";
             this.Alati_IpKonfiguracija_IPv6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
@@ -98,7 +102,7 @@
             this.SubFormPanel.BackColor = System.Drawing.Color.MistyRose;
             this.SubFormPanel.Location = new System.Drawing.Point(6, 24);
             this.SubFormPanel.Name = "SubFormPanel";
-            this.SubFormPanel.Size = new System.Drawing.Size(764, 441);
+            this.SubFormPanel.Size = new System.Drawing.Size(764, 428);
             this.SubFormPanel.TabIndex = 2;
             // 
             // naslovnaGrupaZaSubForms
@@ -110,10 +114,32 @@
             this.naslovnaGrupaZaSubForms.Controls.Add(this.SubFormPanel);
             this.naslovnaGrupaZaSubForms.Location = new System.Drawing.Point(12, 27);
             this.naslovnaGrupaZaSubForms.Name = "naslovnaGrupaZaSubForms";
-            this.naslovnaGrupaZaSubForms.Size = new System.Drawing.Size(776, 471);
+            this.naslovnaGrupaZaSubForms.Size = new System.Drawing.Size(776, 458);
             this.naslovnaGrupaZaSubForms.TabIndex = 3;
             this.naslovnaGrupaZaSubForms.TabStop = false;
             this.naslovnaGrupaZaSubForms.Text = "Nije odabrana funkcija";
+            // 
+            // progressBarStrip
+            // 
+            this.progressBarStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.progressBar,
+            this.ProgressBarLable});
+            this.progressBarStrip.Location = new System.Drawing.Point(0, 488);
+            this.progressBarStrip.Name = "progressBarStrip";
+            this.progressBarStrip.Size = new System.Drawing.Size(800, 22);
+            this.progressBarStrip.TabIndex = 4;
+            this.progressBarStrip.Text = "statusStrip1";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // ProgressBarLable
+            // 
+            this.ProgressBarLable.Name = "ProgressBarLable";
+            this.ProgressBarLable.Size = new System.Drawing.Size(118, 17);
+            this.ProgressBarLable.Text = "toolStripStatusLabel1";
             // 
             // frmMain
             // 
@@ -121,6 +147,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(800, 510);
+            this.Controls.Add(this.progressBarStrip);
             this.Controls.Add(this.naslovnaGrupaZaSubForms);
             this.Controls.Add(this.glavniIzbornik);
             this.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -131,6 +158,8 @@
             this.glavniIzbornik.ResumeLayout(false);
             this.glavniIzbornik.PerformLayout();
             this.naslovnaGrupaZaSubForms.ResumeLayout(false);
+            this.progressBarStrip.ResumeLayout(false);
+            this.progressBarStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,5 +175,8 @@
         private ToolStripMenuItem Alati_IpKonfiguracija_IPv4;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem Alati_IpKonfiguracija_IPv6;
+        private StatusStrip progressBarStrip;
+        private ToolStripProgressBar progressBar;
+        private ToolStripStatusLabel ProgressBarLable;
     }
 }
