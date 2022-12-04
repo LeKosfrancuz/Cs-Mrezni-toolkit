@@ -34,11 +34,12 @@
             this.Alati_IpKonfiguracija_IPv4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Alati_IpKonfiguracija_IPv6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.alati_ReloadMrezniAdapteriMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SubFormPanel = new System.Windows.Forms.Panel();
             this.naslovnaGrupaZaSubForms = new System.Windows.Forms.GroupBox();
             this.progressBarStrip = new System.Windows.Forms.StatusStrip();
             this.progressBar = new System.Windows.Forms.ToolStripProgressBar();
-            this.ProgressBarLable = new System.Windows.Forms.ToolStripStatusLabel();
+            this.progressBarLable = new System.Windows.Forms.ToolStripStatusLabel();
             this.glavniIzbornik.SuspendLayout();
             this.naslovnaGrupaZaSubForms.SuspendLayout();
             this.progressBarStrip.SuspendLayout();
@@ -57,7 +58,8 @@
             // alatiMenuItem
             // 
             this.alatiMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.alati_IpKonfiguracijaMenuItem});
+            this.alati_IpKonfiguracijaMenuItem,
+            this.alati_ReloadMrezniAdapteriMenuItem});
             this.alatiMenuItem.Font = new System.Drawing.Font("Nirmala UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.alatiMenuItem.Name = "alatiMenuItem";
             this.alatiMenuItem.Size = new System.Drawing.Size(43, 20);
@@ -70,7 +72,7 @@
             this.toolStripSeparator1,
             this.Alati_IpKonfiguracija_IPv6});
             this.alati_IpKonfiguracijaMenuItem.Name = "alati_IpKonfiguracijaMenuItem";
-            this.alati_IpKonfiguracijaMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.alati_IpKonfiguracijaMenuItem.Size = new System.Drawing.Size(192, 22);
             this.alati_IpKonfiguracijaMenuItem.Text = "&IP Konfiguracija";
             // 
             // Alati_IpKonfiguracija_IPv4
@@ -91,6 +93,13 @@
             this.Alati_IpKonfiguracija_IPv6.Size = new System.Drawing.Size(96, 22);
             this.Alati_IpKonfiguracija_IPv6.Text = "IPv6";
             this.Alati_IpKonfiguracija_IPv6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            // 
+            // alati_ReloadMrezniAdapteriMenuItem
+            // 
+            this.alati_ReloadMrezniAdapteriMenuItem.Name = "alati_ReloadMrezniAdapteriMenuItem";
+            this.alati_ReloadMrezniAdapteriMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.alati_ReloadMrezniAdapteriMenuItem.Text = "Obnovi Listu Adaptera";
+            this.alati_ReloadMrezniAdapteriMenuItem.Click += new System.EventHandler(this.alati_ReloadMrezniAdapteriMenuItem_Click);
             // 
             // SubFormPanel
             // 
@@ -123,7 +132,7 @@
             // 
             this.progressBarStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.progressBar,
-            this.ProgressBarLable});
+            this.progressBarLable});
             this.progressBarStrip.Location = new System.Drawing.Point(0, 488);
             this.progressBarStrip.Name = "progressBarStrip";
             this.progressBarStrip.Size = new System.Drawing.Size(800, 22);
@@ -135,11 +144,11 @@
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(100, 16);
             // 
-            // ProgressBarLable
+            // progressBarLable
             // 
-            this.ProgressBarLable.Name = "ProgressBarLable";
-            this.ProgressBarLable.Size = new System.Drawing.Size(118, 17);
-            this.ProgressBarLable.Text = "toolStripStatusLabel1";
+            this.progressBarLable.Name = "progressBarLable";
+            this.progressBarLable.Size = new System.Drawing.Size(118, 17);
+            this.progressBarLable.Text = "toolStripStatusLabel1";
             // 
             // frmMain
             // 
@@ -177,6 +186,7 @@
         private ToolStripMenuItem Alati_IpKonfiguracija_IPv6;
         private StatusStrip progressBarStrip;
         private ToolStripProgressBar progressBar;
-        private ToolStripStatusLabel ProgressBarLable;
+        private ToolStripStatusLabel progressBarLable;
+        private ToolStripMenuItem alati_ReloadMrezniAdapteriMenuItem;
     }
 }

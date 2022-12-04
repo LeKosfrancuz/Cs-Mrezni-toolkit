@@ -42,6 +42,14 @@
             this.ipv4Text4 = new System.Windows.Forms.TextBox();
             this.DhcpCheckBox = new System.Windows.Forms.CheckBox();
             this.mreznaMaskaText4 = new System.Windows.Forms.TextBox();
+            this.defaultGatewayLabel = new System.Windows.Forms.Label();
+            this.AdressDotsLabel1 = new System.Windows.Forms.Label();
+            this.AdressDotsLabel2 = new System.Windows.Forms.Label();
+            this.AdressDotsLabel3 = new System.Windows.Forms.Label();
+            this.defaultGatewayText1 = new System.Windows.Forms.TextBox();
+            this.defaultGatewayText2 = new System.Windows.Forms.TextBox();
+            this.defaultGatewayText3 = new System.Windows.Forms.TextBox();
+            this.defaultGatewayText4 = new System.Windows.Forms.TextBox();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,17 +91,18 @@
             this.IPv4Lable.Location = new System.Drawing.Point(13, 118);
             this.IPv4Lable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.IPv4Lable.Name = "IPv4Lable";
-            this.IPv4Lable.Size = new System.Drawing.Size(87, 17);
+            this.IPv4Lable.Size = new System.Drawing.Size(86, 17);
             this.IPv4Lable.TabIndex = 2;
-            this.IPv4Lable.Text = "IPv4 Adresa : ";
+            this.IPv4Lable.Text = "IPv4 adresa : ";
             // 
             // mreznaMaskaText1
             // 
+            this.mreznaMaskaText1.BackColor = System.Drawing.Color.Snow;
             this.mreznaMaskaText1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.mreznaMaskaText1.Location = new System.Drawing.Point(123, 149);
             this.mreznaMaskaText1.Name = "mreznaMaskaText1";
             this.mreznaMaskaText1.Size = new System.Drawing.Size(33, 18);
-            this.mreznaMaskaText1.TabIndex = 4;
+            this.mreznaMaskaText1.TabIndex = 7;
             // 
             // mreznaMaskaLable
             // 
@@ -106,51 +115,57 @@
             // 
             // mreznaMaskaText2
             // 
+            this.mreznaMaskaText2.BackColor = System.Drawing.Color.Snow;
             this.mreznaMaskaText2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.mreznaMaskaText2.Location = new System.Drawing.Point(162, 149);
+            this.mreznaMaskaText2.Location = new System.Drawing.Point(159, 149);
             this.mreznaMaskaText2.Name = "mreznaMaskaText2";
-            this.mreznaMaskaText2.Size = new System.Drawing.Size(35, 18);
-            this.mreznaMaskaText2.TabIndex = 6;
+            this.mreznaMaskaText2.Size = new System.Drawing.Size(33, 18);
+            this.mreznaMaskaText2.TabIndex = 8;
             // 
             // mreznaMaskaText3
             // 
+            this.mreznaMaskaText3.BackColor = System.Drawing.Color.Snow;
             this.mreznaMaskaText3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.mreznaMaskaText3.Location = new System.Drawing.Point(203, 149);
+            this.mreznaMaskaText3.Location = new System.Drawing.Point(195, 149);
             this.mreznaMaskaText3.Name = "mreznaMaskaText3";
-            this.mreznaMaskaText3.Size = new System.Drawing.Size(34, 18);
-            this.mreznaMaskaText3.TabIndex = 7;
+            this.mreznaMaskaText3.Size = new System.Drawing.Size(33, 18);
+            this.mreznaMaskaText3.TabIndex = 9;
             // 
             // ipv4Text1
             // 
+            this.ipv4Text1.BackColor = System.Drawing.Color.Snow;
             this.ipv4Text1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ipv4Text1.Location = new System.Drawing.Point(123, 115);
             this.ipv4Text1.Name = "ipv4Text1";
             this.ipv4Text1.Size = new System.Drawing.Size(33, 18);
-            this.ipv4Text1.TabIndex = 9;
+            this.ipv4Text1.TabIndex = 3;
             // 
             // ipv4Text2
             // 
+            this.ipv4Text2.BackColor = System.Drawing.Color.Snow;
             this.ipv4Text2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ipv4Text2.Location = new System.Drawing.Point(164, 115);
+            this.ipv4Text2.Location = new System.Drawing.Point(159, 115);
             this.ipv4Text2.Name = "ipv4Text2";
             this.ipv4Text2.Size = new System.Drawing.Size(33, 18);
-            this.ipv4Text2.TabIndex = 9;
+            this.ipv4Text2.TabIndex = 4;
             // 
             // ipv4Text3
             // 
+            this.ipv4Text3.BackColor = System.Drawing.Color.Snow;
             this.ipv4Text3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ipv4Text3.Location = new System.Drawing.Point(203, 115);
+            this.ipv4Text3.Location = new System.Drawing.Point(195, 115);
             this.ipv4Text3.Name = "ipv4Text3";
             this.ipv4Text3.Size = new System.Drawing.Size(33, 18);
-            this.ipv4Text3.TabIndex = 9;
+            this.ipv4Text3.TabIndex = 5;
             // 
             // ipv4Text4
             // 
+            this.ipv4Text4.BackColor = System.Drawing.Color.Snow;
             this.ipv4Text4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ipv4Text4.Location = new System.Drawing.Point(243, 115);
+            this.ipv4Text4.Location = new System.Drawing.Point(231, 115);
             this.ipv4Text4.Name = "ipv4Text4";
             this.ipv4Text4.Size = new System.Drawing.Size(33, 18);
-            this.ipv4Text4.TabIndex = 9;
+            this.ipv4Text4.TabIndex = 6;
             // 
             // DhcpCheckBox
             // 
@@ -158,18 +173,94 @@
             this.DhcpCheckBox.Location = new System.Drawing.Point(14, 76);
             this.DhcpCheckBox.Name = "DhcpCheckBox";
             this.DhcpCheckBox.Size = new System.Drawing.Size(111, 21);
-            this.DhcpCheckBox.TabIndex = 10;
+            this.DhcpCheckBox.TabIndex = 2;
             this.DhcpCheckBox.Text = "DHCP Enabled";
             this.DhcpCheckBox.UseVisualStyleBackColor = true;
             this.DhcpCheckBox.CheckStateChanged += new System.EventHandler(this.DhcpCheckChanged);
             // 
             // mreznaMaskaText4
             // 
+            this.mreznaMaskaText4.BackColor = System.Drawing.Color.Snow;
             this.mreznaMaskaText4.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.mreznaMaskaText4.Location = new System.Drawing.Point(243, 149);
+            this.mreznaMaskaText4.Location = new System.Drawing.Point(231, 149);
             this.mreznaMaskaText4.Name = "mreznaMaskaText4";
-            this.mreznaMaskaText4.Size = new System.Drawing.Size(32, 18);
-            this.mreznaMaskaText4.TabIndex = 8;
+            this.mreznaMaskaText4.Size = new System.Drawing.Size(33, 18);
+            this.mreznaMaskaText4.TabIndex = 10;
+            // 
+            // defaultGatewayLabel
+            // 
+            this.defaultGatewayLabel.AutoSize = true;
+            this.defaultGatewayLabel.Location = new System.Drawing.Point(12, 181);
+            this.defaultGatewayLabel.Name = "defaultGatewayLabel";
+            this.defaultGatewayLabel.Size = new System.Drawing.Size(108, 17);
+            this.defaultGatewayLabel.TabIndex = 11;
+            this.defaultGatewayLabel.Text = "Default gateway :";
+            // 
+            // AdressDotsLabel1
+            // 
+            this.AdressDotsLabel1.AutoSize = true;
+            this.AdressDotsLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.AdressDotsLabel1.Location = new System.Drawing.Point(123, 118);
+            this.AdressDotsLabel1.Name = "AdressDotsLabel1";
+            this.AdressDotsLabel1.Size = new System.Drawing.Size(190, 17);
+            this.AdressDotsLabel1.TabIndex = 12;
+            this.AdressDotsLabel1.Text = "128  .   128.   128.12                ";
+            // 
+            // AdressDotsLabel2
+            // 
+            this.AdressDotsLabel2.AutoSize = true;
+            this.AdressDotsLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.AdressDotsLabel2.Location = new System.Drawing.Point(123, 149);
+            this.AdressDotsLabel2.Name = "AdressDotsLabel2";
+            this.AdressDotsLabel2.Size = new System.Drawing.Size(190, 17);
+            this.AdressDotsLabel2.TabIndex = 12;
+            this.AdressDotsLabel2.Text = "128  .   128.   128.12                ";
+            // 
+            // AdressDotsLabel3
+            // 
+            this.AdressDotsLabel3.AutoSize = true;
+            this.AdressDotsLabel3.BackColor = System.Drawing.Color.Transparent;
+            this.AdressDotsLabel3.Location = new System.Drawing.Point(123, 181);
+            this.AdressDotsLabel3.Name = "AdressDotsLabel3";
+            this.AdressDotsLabel3.Size = new System.Drawing.Size(190, 17);
+            this.AdressDotsLabel3.TabIndex = 12;
+            this.AdressDotsLabel3.Text = "128  .   128.   128.12                ";
+            // 
+            // defaultGatewayText1
+            // 
+            this.defaultGatewayText1.BackColor = System.Drawing.Color.Snow;
+            this.defaultGatewayText1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.defaultGatewayText1.Location = new System.Drawing.Point(123, 181);
+            this.defaultGatewayText1.Name = "defaultGatewayText1";
+            this.defaultGatewayText1.Size = new System.Drawing.Size(33, 18);
+            this.defaultGatewayText1.TabIndex = 11;
+            // 
+            // defaultGatewayText2
+            // 
+            this.defaultGatewayText2.BackColor = System.Drawing.Color.Snow;
+            this.defaultGatewayText2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.defaultGatewayText2.Location = new System.Drawing.Point(159, 181);
+            this.defaultGatewayText2.Name = "defaultGatewayText2";
+            this.defaultGatewayText2.Size = new System.Drawing.Size(33, 18);
+            this.defaultGatewayText2.TabIndex = 12;
+            // 
+            // defaultGatewayText3
+            // 
+            this.defaultGatewayText3.BackColor = System.Drawing.Color.Snow;
+            this.defaultGatewayText3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.defaultGatewayText3.Location = new System.Drawing.Point(195, 181);
+            this.defaultGatewayText3.Name = "defaultGatewayText3";
+            this.defaultGatewayText3.Size = new System.Drawing.Size(33, 18);
+            this.defaultGatewayText3.TabIndex = 13;
+            // 
+            // defaultGatewayText4
+            // 
+            this.defaultGatewayText4.BackColor = System.Drawing.Color.Snow;
+            this.defaultGatewayText4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.defaultGatewayText4.Location = new System.Drawing.Point(231, 181);
+            this.defaultGatewayText4.Name = "defaultGatewayText4";
+            this.defaultGatewayText4.Size = new System.Drawing.Size(33, 18);
+            this.defaultGatewayText4.TabIndex = 14;
             // 
             // IpKonfiguracijaForm
             // 
@@ -177,18 +268,26 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(707, 385);
+            this.Controls.Add(this.defaultGatewayLabel);
             this.Controls.Add(this.DhcpCheckBox);
             this.Controls.Add(this.ipv4Text4);
             this.Controls.Add(this.ipv4Text3);
             this.Controls.Add(this.ipv4Text2);
             this.Controls.Add(this.ipv4Text1);
+            this.Controls.Add(this.defaultGatewayText4);
             this.Controls.Add(this.mreznaMaskaText4);
+            this.Controls.Add(this.defaultGatewayText3);
             this.Controls.Add(this.mreznaMaskaText3);
+            this.Controls.Add(this.defaultGatewayText2);
             this.Controls.Add(this.mreznaMaskaText2);
             this.Controls.Add(this.mreznaMaskaLable);
+            this.Controls.Add(this.defaultGatewayText1);
             this.Controls.Add(this.mreznaMaskaText1);
             this.Controls.Add(this.IPv4Lable);
             this.Controls.Add(this.TopPanel);
+            this.Controls.Add(this.AdressDotsLabel3);
+            this.Controls.Add(this.AdressDotsLabel2);
+            this.Controls.Add(this.AdressDotsLabel1);
             this.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "IpKonfiguracijaForm";
@@ -216,5 +315,13 @@
         private TextBox ipv4Text4;
         private CheckBox DhcpCheckBox;
         private TextBox mreznaMaskaText4;
+        private Label defaultGatewayLabel;
+        private Label AdressDotsLabel1;
+        private Label AdressDotsLabel2;
+        private Label AdressDotsLabel3;
+        private TextBox defaultGatewayText1;
+        private TextBox defaultGatewayText2;
+        private TextBox defaultGatewayText3;
+        private TextBox defaultGatewayText4;
     }
 }

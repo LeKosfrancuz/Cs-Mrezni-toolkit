@@ -1,9 +1,12 @@
 ﻿using CMDCs;
+using System.Data.Common;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MrezneFunkcije.IP
 {
@@ -21,7 +24,105 @@ namespace MrezneFunkcije.IP
             return NetworkInterface.GetAllNetworkInterfaces()[index];
         }
 
+        [Serializable]
+        public class Adapter : IComparable<Adapter>
+        {
+            public int BrojDobrihKvaliteta { get; set; }
+            public string AdapterName { get; set; }
+            public string AdapterId { get; set; }
+            public string Ipv4Adresa { get; set; }
+            public string Ipv6Adresa { get; set; }
+            public string MreznaMaskaV4 { get; set; }
+            public string MrezniPrefixV4 { get; set; }
+            public string MrezniPrefixV6 { get; set; }
+            public string DefaultGatewayV4 { get; set; }
+            public string DefaultGatewayV6 { get; set; }
+            public bool DhcpEnabled { get; set; }
+            public bool DhcpV6Enabled { get; set; }
 
+            public Adapter(NetworkInterface adapterObjekt, int brojDobrihKvaliteta)
+            {
+                AdapterName = adapterObjekt.Name;
+                AdapterId = adapterObjekt.Id;
+                BrojDobrihKvaliteta = brojDobrihKvaliteta;
+                this.Ipv4Adresa = "";
+                this.Ipv6Adresa = "";
+                this.MreznaMaskaV4 = "";
+                this.MrezniPrefixV4 = "";
+                this.MrezniPrefixV6 = "";
+                this.DefaultGatewayV4 = "";
+                this.DefaultGatewayV6 = "";
+                this.DhcpEnabled = false;
+                this.DhcpV6Enabled = false;
+            }
+            public int CompareTo(Adapter? other)
+            {
+                if (other == null) return 1;
+                if (this.BrojDobrihKvaliteta < other.BrojDobrihKvaliteta) return 1;
+                return -1;
+                throw new NotImplementedException();
+            }
+        }
+
+
+        public static List<Adapter> GetListOfAdapters()
+        {
+            var mrezniInterfaces = IP_konfiguracija.GetEAdapters().ToList();
+            List<Adapter> mrezniAdapteri = new List<Adapter> { new Adapter(mrezniInterfaces[0], 0) };
+            mrezniAdapteri.RemoveAt(0);
+
+            List<Thread> listaUpdateThreads = new List<Thread>();
+
+            Span<NetworkInterface> listaInterfaceaKaoSpan = CollectionsMarshal.AsSpan(mrezniInterfaces);
+            for (int i = 0; i < listaInterfaceaKaoSpan.Length; i++)
+            {
+                mrezniAdapteri.Add(new Adapter(listaInterfaceaKaoSpan[i], 0));
+
+                Thread updateThread = new Thread(() => updateMrezniAdapter(mrezniAdapteri, i));
+                listaUpdateThreads.Add(updateThread);
+                listaUpdateThreads[i].Start();
+                Thread.Sleep(10);
+                //progressBar.Value = (int)(100.0 * ((i + 1.0) / mrezniInterfaces.Count()));
+            }
+
+            bool isAlive = false;
+            
+            while (!isAlive)
+            {
+                isAlive = listaUpdateThreads.All(item => item.IsAlive == false);
+            } 
+
+                return mrezniAdapteri;
+        }
+
+        public static void updateMrezniAdapter(List<Adapter> mrezniAdapteri, int i)
+        {
+            if (i >= mrezniAdapteri.Count) return;
+            string imeAdaptera = mrezniAdapteri[i].AdapterName;
+
+            mrezniAdapteri[i].Ipv4Adresa = GetIP(imeAdaptera);
+            if (mrezniAdapteri[i].Ipv4Adresa != "Nepoznata") mrezniAdapteri[i].BrojDobrihKvaliteta++;
+            else mrezniAdapteri[i].Ipv4Adresa = "!";
+
+            mrezniAdapteri[i].Ipv6Adresa = GetIP(imeAdaptera, 6);
+            if (mrezniAdapteri[i].Ipv6Adresa != "Nepoznata") mrezniAdapteri[i].BrojDobrihKvaliteta++;
+            else mrezniAdapteri[i].Ipv6Adresa = "!";
+
+            mrezniAdapteri[i].MrezniPrefixV4 = GetMask(imeAdaptera);
+            mrezniAdapteri[i].MreznaMaskaV4 = ConvertPrefixToMask(mrezniAdapteri[i].MrezniPrefixV4);
+            if (mrezniAdapteri[i].MrezniPrefixV4 != "") mrezniAdapteri[i].BrojDobrihKvaliteta++;
+            else mrezniAdapteri[i].MreznaMaskaV4 = "!";
+
+            mrezniAdapteri[i].MrezniPrefixV6 = GetMask(imeAdaptera, 6);
+            if (mrezniAdapteri[i].MrezniPrefixV6 != "") mrezniAdapteri[i].BrojDobrihKvaliteta++;
+            else mrezniAdapteri[i].MrezniPrefixV6 = "!";
+
+            mrezniAdapteri[i].DefaultGatewayV4 = GetDfltGateway(imeAdaptera);
+            if (mrezniAdapteri[i].DefaultGatewayV4.Contains(".")) mrezniAdapteri[i].BrojDobrihKvaliteta++;
+
+            mrezniAdapteri[i].DhcpEnabled = GetDHCP(imeAdaptera);
+            mrezniAdapteri[i].DhcpV6Enabled = GetDHCP(imeAdaptera, 6);
+        }
 
         public static IPAddress[] GetIPs(bool? IPv4Only)
         {
@@ -99,20 +200,40 @@ namespace MrezneFunkcije.IP
 
         public static bool GetDHCP(string imeAdaptera = "", int verzijaProtokola = 4)
         {
-            if (verzijaProtokola != 4) return false;
-            string CMDoutput = CMD.Command("netsh interface ipv4 show addresses");
-            string IP = "";
+            if (verzijaProtokola == 4)
+            {
+                string CMDoutput = CMD.Command($"netsh interface ipv4 show addresses \"{imeAdaptera}\"");
 
-            int nBSN = -1; // Jer je zadnji char uvijek \n
-            foreach (char c in CMDoutput)
-                if (c == '\n') nBSN++;
+                int nBSN = -1; // Jer je zadnji char uvijek \n
+                foreach (char c in CMDoutput)
+                    if (c == '\n') nBSN++;
 
-            if (imeAdaptera == "")
+                if (imeAdaptera == "")
+                    return false;
+
+                string[] adapterAtributes = CMDoutput.Split("\r\n");
+
+                if (adapterAtributes.Count() >= 3 && adapterAtributes[2].Contains("Yes")) return true;
                 return false;
+            } else
+            {
+                string CMDoutput = CMD.Command($"netsh interface ipv6 show interfaces \"{imeAdaptera}\"");
+                int nBSN = -1; // Jer je zadnji char uvijek \n
+                foreach (char c in CMDoutput)
+                    if (c == '\n') nBSN++;
 
-            string[] s = CMDoutput.Split("\r\n");
+                if (imeAdaptera == "")
+                    return false;
 
-            if (s.Count() >= 3 && s[2].Contains("Yes")) return true;
+                string[] adapterAtributes = CMDoutput.Split("\r\n");
+                for (int i = 0; i < adapterAtributes.Length; i++)
+                    if (adapterAtributes[i].Contains("DHCP")) 
+                    {
+                        if (adapterAtributes[i].Contains("enabled")) return true;
+                        else return false;
+                    }
+            }
+
             return false;
 
         }
@@ -254,7 +375,24 @@ namespace MrezneFunkcije.IP
             if (CMDOutput.Contains("Run as admin")) return -2;
             return 0;  
         }
+
+
+        public static T DeepCopy<T>(T item)
+        {
+#pragma warning disable SYSLIB0011
+            BinaryFormatter formatter = new BinaryFormatter();
+            MemoryStream stream = new MemoryStream();
+            if (item == null) throw new ArgumentNullException(nameof(item), "Argument funkcije DeepCopy ne smije biti NULL!");
+            formatter.Serialize(stream, item);
+            stream.Seek(0, SeekOrigin.Begin);
+            T result = (T)formatter.Deserialize(stream);
+            stream.Close();
+            return result;
+#pragma warning restore SYSLIB0011
+        }
     }
+
+
 }
 
 

@@ -9,16 +9,21 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace GUI_Interface
 {
     public partial class IpKonfiguracijaForm : Form
     {
+        List<IP_konfiguracija.Adapter> MrezniAdapteri { get; set; }
         ToolStripProgressBar progressBar { get; set; }
-        public IpKonfiguracijaForm(ToolStripProgressBar progressBarIn)
+        ToolStripLabel progressBarLable { get; set; }
+        public IpKonfiguracijaForm(List<IP_konfiguracija.Adapter> adapters, ToolStripProgressBar progressBarIn, ToolStripLabel progressBarLable)
         {
             this.progressBar = progressBarIn;
             InitializeComponent();
+            this.progressBarLable = progressBarLable;
+            this.MrezniAdapteri = adapters;
         }
 
         private void IpKonfiguracijaForm_Load(object sender, EventArgs e)
@@ -36,49 +41,15 @@ namespace GUI_Interface
         {
             int bestAdapter = 0;
             var mrezniInterfaces = IP_konfiguracija.GetEAdapters().ToList();
-            List<Adapter> mrezniAdapteri = new List<Adapter> { new Adapter(mrezniInterfaces[0], 0) };
-            progressBar.Value = 0;
-            progressBar.Visible = true;
-            for (int i = 0; i < mrezniInterfaces.Count(); i++)
-            {
-                mrezniAdapteri.Add(new Adapter(mrezniInterfaces[i], 0));
-                string imeAdaptera = mrezniAdapteri[i].AdapterObjekt.Name;
-                if (IP_konfiguracija.GetIP(imeAdaptera) != "Nepoznata") mrezniAdapteri[i].BrojDobrihKvaliteta++;
-                if (IP_konfiguracija.GetIP(imeAdaptera, 6) != "Nepoznata") mrezniAdapteri[i].BrojDobrihKvaliteta++;
-                if (IP_konfiguracija.GetMask(imeAdaptera) != "") mrezniAdapteri[i].BrojDobrihKvaliteta++;
-                if (IP_konfiguracija.GetMask(imeAdaptera, 6) != "") mrezniAdapteri[i].BrojDobrihKvaliteta++;
-                if (IP_konfiguracija.GetDfltGateway(imeAdaptera).Contains(".")) mrezniAdapteri[i].BrojDobrihKvaliteta++;
-                this.progressBar.Value = (int)(100.0 * ((i + 1.0) / mrezniInterfaces.Count()));
-                if (mrezniAdapteri[i].BrojDobrihKvaliteta >= 4) break;
-            }
 
-            this.progressBar.Value = 100;
-            
-            mrezniAdapteri.Sort();
-            bestAdapter = mrezniInterfaces.IndexOf(mrezniAdapteri[0].AdapterObjekt);
+            List<IP_konfiguracija.Adapter> MrezniAdapteriSortirani = IP_konfiguracija.DeepCopy<List<IP_konfiguracija.Adapter>>(MrezniAdapteri);
 
-            progressBar.Visible = false;
-            progressBar.Value = 0;
+            MrezniAdapteriSortirani.Sort();
+            bestAdapter = mrezniInterfaces.FindIndex(a => a.Id.Equals(MrezniAdapteriSortirani[0].AdapterId));
             return bestAdapter;
         }
-        private class Adapter : IComparable<Adapter>
-        {
-            public int BrojDobrihKvaliteta { get; set; }
-            public NetworkInterface AdapterObjekt { get; set; }
+        
 
-            public Adapter(NetworkInterface adapterObjekt, int brojDobrihKvaliteta)
-            {
-                AdapterObjekt = adapterObjekt;
-                BrojDobrihKvaliteta = brojDobrihKvaliteta;
-            }
-
-            public int CompareTo(Adapter? other)
-            {
-                if (this.BrojDobrihKvaliteta < other.BrojDobrihKvaliteta) return 1;
-                return -1;
-                throw new NotImplementedException();
-            }
-        }
 
         private void ToggleAllTextFieldInputs(bool enable)
         {
@@ -91,28 +62,30 @@ namespace GUI_Interface
             ipv4Text1.Enabled = enable;
             ipv4Text2.Enabled = enable;
             ipv4Text3.Enabled = enable;
+
+            defaultGatewayText1.Enabled = enable;
+            defaultGatewayText2.Enabled = enable;
+            defaultGatewayText3.Enabled = enable;
+            defaultGatewayText4.Enabled = enable;
         }
 
         private void ReDrawTextBoxes()
         {
-            NetworkInterface[] networkInterfaces = IP_konfiguracija.GetEAdapters();
             int interfaceIndex = this.interfaceComboBox.SelectedIndex;
-            string prefixNumber = IP_konfiguracija.GetMask(networkInterfaces[interfaceIndex].Name);
-            string maska = IP_konfiguracija.ConvertPrefixToMask(prefixNumber);
+            string prefixNumber = MrezniAdapteri[interfaceIndex].MrezniPrefixV4;
+            string maska = MrezniAdapteri[interfaceIndex].MreznaMaskaV4;
             (mreznaMaskaText1.Text, mreznaMaskaText2.Text, mreznaMaskaText3.Text, mreznaMaskaText4.Text)
                 = IP_konfiguracija.SeperateMask(maska);
 
-            string IP = IP_konfiguracija.GetIP(networkInterfaces[interfaceIndex].Name);
+            string IP = MrezniAdapteri[interfaceIndex].Ipv4Adresa;
             (ipv4Text1.Text, ipv4Text2.Text, ipv4Text3.Text, ipv4Text4.Text)
                 = IP_konfiguracija.SeperateMask(IP);
 
-            if (DhcpCheckBox.Checked == true)
-            {
-                ToggleAllTextFieldInputs(false);
-            } else
-            {
-                ToggleAllTextFieldInputs(true);
-            }
+            string defaultGateway = MrezniAdapteri[interfaceIndex].DefaultGatewayV4;
+            (defaultGatewayText1.Text, defaultGatewayText2.Text, defaultGatewayText3.Text, defaultGatewayText4.Text)
+                = IP_konfiguracija.SeperateMask(defaultGateway);
+
+            DhcpCheckBox.Checked = MrezniAdapteri[interfaceIndex].DhcpEnabled;
         }
 
 
@@ -123,7 +96,14 @@ namespace GUI_Interface
 
         private void DhcpCheckChanged(object sender, EventArgs e)
         {
-            ReDrawTextBoxes();
+            if (DhcpCheckBox.Checked == true)
+            {
+                ToggleAllTextFieldInputs(false);
+            }
+            else
+            {
+                ToggleAllTextFieldInputs(true);
+            }
         }
     }
 }
