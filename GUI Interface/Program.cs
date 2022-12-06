@@ -1,3 +1,5 @@
+using MrezneFunkcije.IP;
+
 namespace GUI_Interface
 {
     internal static class Program

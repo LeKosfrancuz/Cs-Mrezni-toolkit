@@ -9,6 +9,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MrezneFunkcije.Elevate;
 using MrezneFunkcije.IP;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -89,5 +90,16 @@ public partial class frmMain : Form
         }
         progressBar.Visible = false;
         progressBarLable.Visible = false;
+    }
+
+    private void alati_ElevateToAdminMenuItem_Click(object sender, EventArgs e)
+    {
+        var result = Elevate.ElevateProcess();
+
+        if (result != null)
+        {
+            MessageBox.Show("Aplikacija će se ponovno pokrenuti!");
+            this.Close();
+        }
     }
 }

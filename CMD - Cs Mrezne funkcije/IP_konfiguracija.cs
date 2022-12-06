@@ -1,5 +1,8 @@
 ﻿using CMDCs;
+using Newtonsoft.Json.Serialization;
+using System.ComponentModel;
 using System.Data.Common;
+using System.Diagnostics;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -369,6 +372,68 @@ namespace MrezneFunkcije.IP
             return mask;
         }
 
+        public static string ConvertMaskToPrefix(string mask) 
+        {
+            string prefix = "!";
+            if (IsMaskRange(mask))
+            {
+                string[] maskSplit = mask.Split(".");
+                uint octet1 = uint.Parse(maskSplit[0]);
+                uint octet2 = uint.Parse(maskSplit[1]);
+                uint octet3 = uint.Parse(maskSplit[2]);
+                uint octet4 = uint.Parse(maskSplit[3]);
+
+                int numberOfSetBits = 0;
+                uint tempOctet = 0;
+                bool endOdOnes = false;
+                for (int i = 0; i < 32; i++)
+                {
+                    switch(i)
+                    {
+                        case 0: tempOctet = octet1; break;
+                        case 8: tempOctet = octet2; break;
+                        case 16: tempOctet = octet3; break;
+                        case 24: tempOctet = octet4; break;
+                        default: break;
+                    }
+                    
+                    uint tempBit = tempOctet & 0x80;
+                    tempBit >>= 7;
+                    if (tempBit == 1 && endOdOnes == true) return prefix;
+                    else if (endOdOnes == false && tempBit == 0) endOdOnes = true;
+
+                    numberOfSetBits += (int)tempBit;
+
+                    tempOctet <<= 1;
+                }
+
+                prefix = "/" + numberOfSetBits;
+
+            }
+            return prefix;
+        }
+
+        private static bool IsMaskRange(string mask)
+        {
+                string[] maskaSplit = mask.Split(".");
+                if (maskaSplit.Length != 4) return false;
+
+                if (int.TryParse(maskaSplit[0], out int octet1) && int.TryParse(maskaSplit[1], out int octet2) 
+                    && int.TryParse(maskaSplit[2], out int octet3) && int.TryParse(maskaSplit[3], out int octet4))
+                {
+                    if (octet1 >= 0 && octet2 >= 0 && octet3 >= 0 && octet4 >= 0 && octet1 <= 255 && octet2 <= 255 && octet3 <= 255 && octet4 <= 255)
+                        return true;
+                }
+                
+                return false;
+        }
+
+        public static bool IsMask(string mask)
+        {
+            if (ConvertMaskToPrefix(mask) != "!") return true;
+            else return false;
+        }
+
         public static int SetIPv4(string InterfaceName, string NewIP, string SubnetMask, string Gateway) {
             if (SubnetMask == "Nepoznata") return -1;
             string CMDOutput = CMD.Command($"netsh interface ipv4 set address name=\"{InterfaceName}\" static {NewIP} {SubnetMask} {Gateway}");
@@ -393,6 +458,42 @@ namespace MrezneFunkcije.IP
     }
 
 
+}
+
+
+namespace MrezneFunkcije.Elevate
+{
+    public static class Elevate
+    {
+        public static Process ElevateProcess()
+        {
+            Process source = Process.GetCurrentProcess();
+
+            //Create a new process
+            Process target = new Process();
+            //target.StartInfo = source.StartInfo;
+            target.StartInfo.FileName = source.MainModule.FileName;
+            target.StartInfo.WorkingDirectory = Path.GetDirectoryName(source.MainModule.FileName);
+
+            //Required for UAC to work
+            target.StartInfo.UseShellExecute = true;
+            target.StartInfo.Verb = "runas";
+
+            try
+            {
+                if (!target.Start())
+                    return null;
+            }
+            catch (Win32Exception e)
+            {
+                //Cancelled
+                if (e.NativeErrorCode == 1223)
+                    return null;
+                throw;
+            };
+            return target;
+        }
+    }
 }
 
 

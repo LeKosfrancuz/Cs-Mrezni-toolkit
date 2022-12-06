@@ -50,6 +50,7 @@
             this.defaultGatewayText2 = new System.Windows.Forms.TextBox();
             this.defaultGatewayText3 = new System.Windows.Forms.TextBox();
             this.defaultGatewayText4 = new System.Windows.Forms.TextBox();
+            this.ipv4PrefixText = new System.Windows.Forms.TextBox();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,6 +104,8 @@
             this.mreznaMaskaText1.Name = "mreznaMaskaText1";
             this.mreznaMaskaText1.Size = new System.Drawing.Size(33, 18);
             this.mreznaMaskaText1.TabIndex = 7;
+            this.mreznaMaskaText1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mreznaMaskaText1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mreznaMaskaText_KeyUp);
             // 
             // mreznaMaskaLable
             // 
@@ -121,6 +124,8 @@
             this.mreznaMaskaText2.Name = "mreznaMaskaText2";
             this.mreznaMaskaText2.Size = new System.Drawing.Size(33, 18);
             this.mreznaMaskaText2.TabIndex = 8;
+            this.mreznaMaskaText2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mreznaMaskaText2.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mreznaMaskaText_KeyUp);
             // 
             // mreznaMaskaText3
             // 
@@ -130,6 +135,8 @@
             this.mreznaMaskaText3.Name = "mreznaMaskaText3";
             this.mreznaMaskaText3.Size = new System.Drawing.Size(33, 18);
             this.mreznaMaskaText3.TabIndex = 9;
+            this.mreznaMaskaText3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mreznaMaskaText3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mreznaMaskaText_KeyUp);
             // 
             // ipv4Text1
             // 
@@ -139,6 +146,7 @@
             this.ipv4Text1.Name = "ipv4Text1";
             this.ipv4Text1.Size = new System.Drawing.Size(33, 18);
             this.ipv4Text1.TabIndex = 3;
+            this.ipv4Text1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ipv4Text2
             // 
@@ -148,6 +156,7 @@
             this.ipv4Text2.Name = "ipv4Text2";
             this.ipv4Text2.Size = new System.Drawing.Size(33, 18);
             this.ipv4Text2.TabIndex = 4;
+            this.ipv4Text2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ipv4Text3
             // 
@@ -157,6 +166,7 @@
             this.ipv4Text3.Name = "ipv4Text3";
             this.ipv4Text3.Size = new System.Drawing.Size(33, 18);
             this.ipv4Text3.TabIndex = 5;
+            this.ipv4Text3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ipv4Text4
             // 
@@ -166,6 +176,7 @@
             this.ipv4Text4.Name = "ipv4Text4";
             this.ipv4Text4.Size = new System.Drawing.Size(33, 18);
             this.ipv4Text4.TabIndex = 6;
+            this.ipv4Text4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // DhcpCheckBox
             // 
@@ -186,6 +197,8 @@
             this.mreznaMaskaText4.Name = "mreznaMaskaText4";
             this.mreznaMaskaText4.Size = new System.Drawing.Size(33, 18);
             this.mreznaMaskaText4.TabIndex = 10;
+            this.mreznaMaskaText4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mreznaMaskaText4.KeyUp += new System.Windows.Forms.KeyEventHandler(this.mreznaMaskaText_KeyUp);
             // 
             // defaultGatewayLabel
             // 
@@ -234,6 +247,7 @@
             this.defaultGatewayText1.Name = "defaultGatewayText1";
             this.defaultGatewayText1.Size = new System.Drawing.Size(33, 18);
             this.defaultGatewayText1.TabIndex = 11;
+            this.defaultGatewayText1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // defaultGatewayText2
             // 
@@ -243,6 +257,7 @@
             this.defaultGatewayText2.Name = "defaultGatewayText2";
             this.defaultGatewayText2.Size = new System.Drawing.Size(33, 18);
             this.defaultGatewayText2.TabIndex = 12;
+            this.defaultGatewayText2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // defaultGatewayText3
             // 
@@ -252,6 +267,7 @@
             this.defaultGatewayText3.Name = "defaultGatewayText3";
             this.defaultGatewayText3.Size = new System.Drawing.Size(33, 18);
             this.defaultGatewayText3.TabIndex = 13;
+            this.defaultGatewayText3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // defaultGatewayText4
             // 
@@ -261,6 +277,18 @@
             this.defaultGatewayText4.Name = "defaultGatewayText4";
             this.defaultGatewayText4.Size = new System.Drawing.Size(33, 18);
             this.defaultGatewayText4.TabIndex = 14;
+            this.defaultGatewayText4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ipv4PrefixText
+            // 
+            this.ipv4PrefixText.BackColor = System.Drawing.Color.Snow;
+            this.ipv4PrefixText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ipv4PrefixText.Location = new System.Drawing.Point(270, 115);
+            this.ipv4PrefixText.Name = "ipv4PrefixText";
+            this.ipv4PrefixText.Size = new System.Drawing.Size(22, 18);
+            this.ipv4PrefixText.TabIndex = 15;
+            this.ipv4PrefixText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.ipv4PrefixText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ipv4PrefixText_KeyUp);
             // 
             // IpKonfiguracijaForm
             // 
@@ -268,6 +296,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(707, 385);
+            this.Controls.Add(this.ipv4PrefixText);
             this.Controls.Add(this.defaultGatewayLabel);
             this.Controls.Add(this.DhcpCheckBox);
             this.Controls.Add(this.ipv4Text4);
@@ -323,5 +352,6 @@
         private TextBox defaultGatewayText2;
         private TextBox defaultGatewayText3;
         private TextBox defaultGatewayText4;
+        private TextBox ipv4PrefixText;
     }
 }

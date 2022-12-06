@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMD - Cs Mrezne funkcije", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CMD Interface", "CMD Interface\CMD Interface.csproj", "{5F835BA8-172A-48A0-A34C-321CC504086D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI Interface", "GUI Interface\GUI Interface.csproj", "{2B5F90B0-D303-423F-82E9-8D7C6DDA0751}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GUI Interface", "GUI Interface\GUI Interface.csproj", "{2B5F90B0-D303-423F-82E9-8D7C6DDA0751}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

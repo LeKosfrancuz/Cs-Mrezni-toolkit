@@ -35,6 +35,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.Alati_IpKonfiguracija_IPv6 = new System.Windows.Forms.ToolStripMenuItem();
             this.alati_ReloadMrezniAdapteriMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.alati_ElevateToAdminMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SubFormPanel = new System.Windows.Forms.Panel();
             this.naslovnaGrupaZaSubForms = new System.Windows.Forms.GroupBox();
             this.progressBarStrip = new System.Windows.Forms.StatusStrip();
@@ -59,7 +60,8 @@
             // 
             this.alatiMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.alati_IpKonfiguracijaMenuItem,
-            this.alati_ReloadMrezniAdapteriMenuItem});
+            this.alati_ReloadMrezniAdapteriMenuItem,
+            this.alati_ElevateToAdminMenuItem});
             this.alatiMenuItem.Font = new System.Drawing.Font("Nirmala UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.alatiMenuItem.Name = "alatiMenuItem";
             this.alatiMenuItem.Size = new System.Drawing.Size(43, 20);
@@ -72,34 +74,47 @@
             this.toolStripSeparator1,
             this.Alati_IpKonfiguracija_IPv6});
             this.alati_IpKonfiguracijaMenuItem.Name = "alati_IpKonfiguracijaMenuItem";
-            this.alati_IpKonfiguracijaMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.alati_IpKonfiguracijaMenuItem.Size = new System.Drawing.Size(279, 22);
             this.alati_IpKonfiguracijaMenuItem.Text = "&IP Konfiguracija";
             // 
             // Alati_IpKonfiguracija_IPv4
             // 
             this.Alati_IpKonfiguracija_IPv4.Name = "Alati_IpKonfiguracija_IPv4";
-            this.Alati_IpKonfiguracija_IPv4.Size = new System.Drawing.Size(96, 22);
+            this.Alati_IpKonfiguracija_IPv4.Size = new System.Drawing.Size(180, 22);
             this.Alati_IpKonfiguracija_IPv4.Text = "IPv4";
             this.Alati_IpKonfiguracija_IPv4.Click += new System.EventHandler(this.Alati_IpKonfiguracija_IPv4_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(93, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // Alati_IpKonfiguracija_IPv6
             // 
             this.Alati_IpKonfiguracija_IPv6.Name = "Alati_IpKonfiguracija_IPv6";
-            this.Alati_IpKonfiguracija_IPv6.Size = new System.Drawing.Size(96, 22);
+            this.Alati_IpKonfiguracija_IPv6.Size = new System.Drawing.Size(180, 22);
             this.Alati_IpKonfiguracija_IPv6.Text = "IPv6";
             this.Alati_IpKonfiguracija_IPv6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             // 
             // alati_ReloadMrezniAdapteriMenuItem
             // 
             this.alati_ReloadMrezniAdapteriMenuItem.Name = "alati_ReloadMrezniAdapteriMenuItem";
-            this.alati_ReloadMrezniAdapteriMenuItem.Size = new System.Drawing.Size(192, 22);
-            this.alati_ReloadMrezniAdapteriMenuItem.Text = "Obnovi Listu Adaptera";
+            this.alati_ReloadMrezniAdapteriMenuItem.ShortcutKeyDisplayString = "Ctrl+Shift+R";
+            this.alati_ReloadMrezniAdapteriMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.R)));
+            this.alati_ReloadMrezniAdapteriMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.alati_ReloadMrezniAdapteriMenuItem.Text = "Obnovi &Listu Adaptera";
             this.alati_ReloadMrezniAdapteriMenuItem.Click += new System.EventHandler(this.alati_ReloadMrezniAdapteriMenuItem_Click);
+            // 
+            // alati_ElevateToAdminMenuItem
+            // 
+            this.alati_ElevateToAdminMenuItem.Image = global::GUI_Interface.Properties.Resources.Admin;
+            this.alati_ElevateToAdminMenuItem.Name = "alati_ElevateToAdminMenuItem";
+            this.alati_ElevateToAdminMenuItem.ShortcutKeyDisplayString = "Ctrl+E";
+            this.alati_ElevateToAdminMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.alati_ElevateToAdminMenuItem.Size = new System.Drawing.Size(279, 22);
+            this.alati_ElevateToAdminMenuItem.Text = "Zatraži &Administratorske ovlasti";
+            this.alati_ElevateToAdminMenuItem.Click += new System.EventHandler(this.alati_ElevateToAdminMenuItem_Click);
             // 
             // SubFormPanel
             // 
@@ -160,6 +175,7 @@
             this.Controls.Add(this.naslovnaGrupaZaSubForms);
             this.Controls.Add(this.glavniIzbornik);
             this.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.HelpButton = true;
             this.MainMenuStrip = this.glavniIzbornik;
             this.Name = "frmMain";
             this.Text = "Mrežni toolkit";
@@ -188,5 +204,6 @@
         private ToolStripProgressBar progressBar;
         private ToolStripStatusLabel progressBarLable;
         private ToolStripMenuItem alati_ReloadMrezniAdapteriMenuItem;
+        private ToolStripMenuItem alati_ElevateToAdminMenuItem;
     }
 }
