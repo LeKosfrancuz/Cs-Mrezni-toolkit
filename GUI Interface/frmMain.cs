@@ -102,4 +102,10 @@ public partial class frmMain : Form
             this.Close();
         }
     }
+
+    private void Alati_IpKonfiguracija_IPv6_Click(object sender, EventArgs e)
+    {
+        OtvoriSubForm(new IpKonfiguracijaV6Form(MrezniAdapteri, progressBar, progressBarLable));
+        naslovnaGrupaZaSubForms.Text = Alati_IpKonfiguracija_IPv6.Text + " Konfiguracija";
+    }
 }

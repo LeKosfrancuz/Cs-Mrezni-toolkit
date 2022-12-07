@@ -152,7 +152,7 @@ namespace MrezneFunkcije.IP
 
         public static string GetIP(string imeAdaptera = "", int verzijaProtokola = 4)
         {
-            string CMDoutput = CMD.Command("ipconfig | findstr \"Ethernet Adapter\"");
+            string CMDoutput = CMD.Command($"netsh interface ipv{verzijaProtokola} show addresses \"{imeAdaptera}\"");
             string IP = "";
 
             int nBSN = -1; // Jer je zadnji char uvijek \n
@@ -162,41 +162,26 @@ namespace MrezneFunkcije.IP
             if (imeAdaptera == "")
             return "Nije specificirana mrežna kartica";
 
-            if (nBSN == 1)
-                CMDoutput = CMD.Command($"ipconfig | findstr \"IPv{verzijaProtokola}\"");
-            else
+
+            if (verzijaProtokola == 4)
             {
-                CMDoutput = CMD.Command($"ipconfig");
+                string[] s = CMDoutput.Split(":");
 
-                string[] cmdOutputSplit = CMDoutput.Split("adapter");
-                int numberOfAdaptersFound = cmdOutputSplit.Count();
-
-                int indeksOdabranogAdaptera = -1;
-                for (int i = 0; i < numberOfAdaptersFound; i++)
-                    if (cmdOutputSplit[i].Contains(imeAdaptera))
+                for (int i = 1; i < s.Count() - 1; i++)
+                {
+                    if (s[i - 1].Contains($"IP Address"))
                     {
-                        indeksOdabranogAdaptera = i;
-                        break;
+                        var IPSpaces = s[i].Split('\r')[0].Split(" ");      //Uzme desni dio od nove linije (ip adresa) i podjeli stringove po razmacima
+                        IP = IPSpaces[IPSpaces.Length - 1];                 //Ip adresa je zadnja jer je djeljeno po razmacima a u ipv4 nema razmaka
                     }
-                if (indeksOdabranogAdaptera == -1)
-                {
-                    CMDoutput = CMD.Command($"netsh interface ipv{verzijaProtokola} show addresses \"{imeAdaptera}\"");
-                    if (CMDoutput.Contains(imeAdaptera)) return "Adapter je pronađen, ali ipconfig ne dopušta konfiguraciju";
 
-                    return "Nepoznata"; 
                 }
-
-
-                string[] s = cmdOutputSplit[indeksOdabranogAdaptera].Split(": ");
-
-                for (int i = 1; i < s.Count()-1; i++)
-                if (s[i-1].Contains($"IPv{verzijaProtokola}"))
-                {
-                    IP = s[i].Split('\r')[0];
-                }
-
             }
-
+            else if (verzijaProtokola == 6 && CMDoutput.Length > 25)
+            {
+                string ipv6SaId = CMDoutput.Split("Address")[1].Split(" ")[1];
+                IP = ipv6SaId.Split("%")[0];
+            }
             if (IP == "") return "Nepoznata";
             return IP;
         }
@@ -275,7 +260,7 @@ namespace MrezneFunkcije.IP
             if (maskSplit.Length >= 4)
             return (maskSplit[0], maskSplit[1], maskSplit[2], maskSplit[3]);
 
-            return ("- / -", "", "", "");
+            return ("", "", "", "");
         }
 
         public static string GetDfltGateway(string imeAdaptera = "", int verzijaProtokola = 4)
@@ -413,7 +398,7 @@ namespace MrezneFunkcije.IP
             return prefix;
         }
 
-        private static bool IsMaskRange(string mask)
+        public static bool IsMaskRange(string mask)
         {
                 string[] maskaSplit = mask.Split(".");
                 if (maskaSplit.Length != 4) return false;
@@ -435,10 +420,19 @@ namespace MrezneFunkcije.IP
         }
 
         public static int SetIPv4(string InterfaceName, string NewIP, string SubnetMask, string Gateway) {
-            if (SubnetMask == "Nepoznata") return -1;
+            if (SubnetMask == "Nepoznata") return -2;
             string CMDOutput = CMD.Command($"netsh interface ipv4 set address name=\"{InterfaceName}\" static {NewIP} {SubnetMask} {Gateway}");
-            if (CMDOutput.Contains("Run as admin")) return -2;
+            if (CMDOutput.Contains("Run as admin")) return -1;
+            if (CMDOutput.Contains("The interface may be disconnected")) return -2;
             return 0;  
+        }
+
+        public static int SetDHCPv4(string InterfaceName)
+        {
+            string CMDoutput = CMD.Command($"netsh interface ip set address \"{InterfaceName}\" dhcp");
+            if (CMDoutput.Contains("Run as admin")) return -1;
+            if (CMDoutput.Contains("The interface may be disconnected")) return -2;
+            return 0;
         }
 
 

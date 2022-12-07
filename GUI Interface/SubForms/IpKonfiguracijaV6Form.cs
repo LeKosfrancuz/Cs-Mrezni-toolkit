@@ -17,12 +17,12 @@ using System.Runtime.CompilerServices;
 
 namespace GUI_Interface
 {
-    public partial class IpKonfiguracijaForm : Form
+    public partial class IpKonfiguracijaV6Form : Form
     {
         List<IP_konfiguracija.Adapter> MrezniAdapteri { get; set; }
         ToolStripProgressBar progressBar { get; set; }
         ToolStripLabel progressBarLable { get; set; }
-        public IpKonfiguracijaForm(List<IP_konfiguracija.Adapter> adapters, ToolStripProgressBar progressBarIn, ToolStripLabel progressBarLable)
+        public IpKonfiguracijaV6Form(List<IP_konfiguracija.Adapter> adapters, ToolStripProgressBar progressBarIn, ToolStripLabel progressBarLable)
         {
             this.progressBar = progressBarIn;
             InitializeComponent();
@@ -52,47 +52,32 @@ namespace GUI_Interface
             bestAdapter = mrezniInterfaces.FindIndex(a => a.Id.Equals(MrezniAdapteriSortirani[0].AdapterId));
             return bestAdapter;
         }
-        
+
 
 
         private void ToggleAllTextFieldInputs(bool enable)
         {
-            mreznaMaskaText1.Enabled = enable;
-            mreznaMaskaText2.Enabled = enable;
-            mreznaMaskaText3.Enabled = enable;
-            mreznaMaskaText4.Enabled = enable;
 
-            ipv4PrefixText.Enabled = enable;
+            ipv6PrefixText.Enabled = enable;
 
-            ipv4Text4.Enabled = enable;
-            ipv4Text1.Enabled = enable;
-            ipv4Text2.Enabled = enable;
-            ipv4Text3.Enabled = enable;
+            ipv6Text.Enabled = enable;
 
-            defaultGatewayText1.Enabled = enable;
-            defaultGatewayText2.Enabled = enable;
-            defaultGatewayText3.Enabled = enable;
-            defaultGatewayText4.Enabled = enable;
+            defaultGatewayV6Text.Enabled = enable;
         }
 
         private void ReDrawTextBoxes()
         {
             int interfaceIndex = this.interfaceComboBox.SelectedIndex;
-            string prefix = MrezniAdapteri[interfaceIndex].MrezniPrefixV4;
-            string maska = MrezniAdapteri[interfaceIndex].MreznaMaskaV4;
-            (mreznaMaskaText1.Text, mreznaMaskaText2.Text, mreznaMaskaText3.Text, mreznaMaskaText4.Text)
-                = IP_konfiguracija.SeperateMask(maska);
-            ipv4PrefixText.Text = prefix;
+            string prefix = MrezniAdapteri[interfaceIndex].MrezniPrefixV6;
+            ipv6PrefixText.Text = prefix;
 
-            string IP = MrezniAdapteri[interfaceIndex].Ipv4Adresa;
-            (ipv4Text1.Text, ipv4Text2.Text, ipv4Text3.Text, ipv4Text4.Text)
-                = IP_konfiguracija.SeperateMask(IP);
+            string IP = MrezniAdapteri[interfaceIndex].Ipv6Adresa;
+            ipv6Text.Text = IP;
 
-            string defaultGateway = MrezniAdapteri[interfaceIndex].DefaultGatewayV4;
-            (defaultGatewayText1.Text, defaultGatewayText2.Text, defaultGatewayText3.Text, defaultGatewayText4.Text)
-                = IP_konfiguracija.SeperateMask(defaultGateway);
+            string defaultGateway = MrezniAdapteri[interfaceIndex].DefaultGatewayV6;
+            defaultGatewayV6Text.Text = defaultGateway;
 
-            DhcpCheckBox.Checked = MrezniAdapteri[interfaceIndex].DhcpEnabled;
+            DhcpCheckBox.Checked = MrezniAdapteri[interfaceIndex].DhcpV6Enabled;
         }
 
 
@@ -113,35 +98,15 @@ namespace GUI_Interface
             }
         }
 
-        private void ipv4PrefixText_KeyUp(object sender, KeyEventArgs e)
-        {
-            var inputSplit = ipv4PrefixText.Text.Split("/");
-            if (inputSplit.Length > 1 && int.TryParse(inputSplit[1], out int null1))
-            {
-                string maska = IP_konfiguracija.ConvertPrefixToMask("/" + inputSplit[1]);
-                (mreznaMaskaText1.Text, mreznaMaskaText2.Text, mreznaMaskaText3.Text, mreznaMaskaText4.Text) = IP_konfiguracija.SeperateMask(maska);
-            }
-        }
-
-        private void mreznaMaskaText_KeyUp(object sender, KeyEventArgs e)
-        {
-            string mask = mreznaMaskaText1.Text + "." + mreznaMaskaText2.Text + "." + mreznaMaskaText3.Text + "." + mreznaMaskaText4.Text;
-            string prefix = IP_konfiguracija.ConvertMaskToPrefix(mask);
-            if (prefix != "!")
-            {
-                ipv4PrefixText.Text = prefix;
-            }
-        }
-
         private void primjeniPostavkeButton_Click(object sender, EventArgs e)
         {
-            string ip = ipv4Text1.Text + "." + ipv4Text2.Text + "." + ipv4Text3.Text + "." + ipv4Text4.Text;
-            string mask = mreznaMaskaText1.Text + "." + mreznaMaskaText2.Text + "." + mreznaMaskaText3.Text + "." + mreznaMaskaText4.Text;
-            string gateway = defaultGatewayText1.Text + "." + defaultGatewayText2.Text + "." + defaultGatewayText3.Text + "." + defaultGatewayText4.Text;
-            if (gateway == "...") gateway = "";
+            string ip = ipv6Text.Text;
+            string gateway = defaultGatewayV6Text.Text;
+            string prefix = ipv6PrefixText.Text;
+            if (gateway == "!") gateway = "";
 
-            if ((IP_konfiguracija.IsMaskRange(ip) && IP_konfiguracija.IsMask(mask) && (IP_konfiguracija.IsMaskRange(gateway) || gateway == "")
-                && mask == IP_konfiguracija.ConvertPrefixToMask(ipv4PrefixText.Text)) || DhcpCheckBox.Checked) 
+            if (IP_konfiguracija.IsMaskRange(ip) && prefix == prefix && (IP_konfiguracija.IsMaskRange(gateway) || gateway == "")
+               || DhcpCheckBox.Checked)
             {
                 MessageBoxButtons gumbi = MessageBoxButtons.YesNo;
                 MessageBoxDefaultButton odabranGumb = MessageBoxDefaultButton.Button1;
@@ -152,13 +117,13 @@ namespace GUI_Interface
                     return;
 
                 int interfaceIndex = this.interfaceComboBox.SelectedIndex;
-                
+
                 int rezultat;
 
                 if (DhcpCheckBox.Checked)
-                rezultat = IP_konfiguracija.SetDHCPv4(MrezniAdapteri[interfaceIndex].AdapterName);
+                    rezultat = -2;//IP_konfiguracija.SetDHCPv4(MrezniAdapteri[interfaceIndex].AdapterName);
                 else
-                rezultat = IP_konfiguracija.SetIPv4(MrezniAdapteri[interfaceIndex].AdapterName, ip, mask, gateway);
+                    rezultat = -2;//IP_konfiguracija.SetIPv4(MrezniAdapteri[interfaceIndex].AdapterName, ip, mask, gateway);
 
                 if (rezultat == -1)
                 {
@@ -178,12 +143,12 @@ namespace GUI_Interface
                 {
                     if (!DhcpCheckBox.Checked)
                     {
-                        MrezniAdapteri[interfaceIndex].DhcpEnabled = !DhcpCheckBox.Checked;
-                        MrezniAdapteri[interfaceIndex].DefaultGatewayV4 = gateway;
-                        MrezniAdapteri[interfaceIndex].Ipv4Adresa = ip;
-                        MrezniAdapteri[interfaceIndex].MrezniPrefixV4 = IP_konfiguracija.ConvertMaskToPrefix(mask);
-                        MrezniAdapteri[interfaceIndex].MreznaMaskaV4 = mask;
-                    } else
+                        MrezniAdapteri[interfaceIndex].DhcpV6Enabled = !DhcpCheckBox.Checked;
+                        MrezniAdapteri[interfaceIndex].DefaultGatewayV6 = gateway;
+                        MrezniAdapteri[interfaceIndex].Ipv6Adresa = ip;
+                        MrezniAdapteri[interfaceIndex].MrezniPrefixV6 = prefix;
+                    }
+                    else
                     {
                         MrezniAdapteri = IP_konfiguracija.GetListOfAdapters();
                         Thread upozoriNaAdaptere = new Thread(upozoriOsvjezitAdapter);
@@ -191,15 +156,16 @@ namespace GUI_Interface
                     }
                 }
 
-                if (MrezniAdapteri[interfaceIndex].DhcpEnabled == DhcpCheckBox.Checked && MrezniAdapteri[interfaceIndex].DefaultGatewayV4 == gateway && MrezniAdapteri[interfaceIndex].MreznaMaskaV4 == mask
-                    && MrezniAdapteri[interfaceIndex].Ipv4Adresa == ip && MrezniAdapteri[interfaceIndex].MrezniPrefixV4 == IP_konfiguracija.ConvertMaskToPrefix(mask)) 
+                if (MrezniAdapteri[interfaceIndex].DhcpEnabled == DhcpCheckBox.Checked && MrezniAdapteri[interfaceIndex].DefaultGatewayV4 == gateway
+                    && MrezniAdapteri[interfaceIndex].Ipv4Adresa == ip && prefix == prefix)
                 {
                     gumbi = MessageBoxButtons.OK;
                     odabranGumb = MessageBoxDefaultButton.Button1;
                     slikica = MessageBoxIcon.Information;
                     MessageBox.Show("Postavljanje mrežnih postavki uspješno!", "Uspjeh", gumbi, slikica, odabranGumb);
                 }
-            } else
+            }
+            else
             {
                 MessageBoxButtons gumbi = MessageBoxButtons.OK;
                 MessageBoxDefaultButton odabranGumb = MessageBoxDefaultButton.Button1;

@@ -51,6 +51,7 @@
             this.defaultGatewayText3 = new System.Windows.Forms.TextBox();
             this.defaultGatewayText4 = new System.Windows.Forms.TextBox();
             this.ipv4PrefixText = new System.Windows.Forms.TextBox();
+            this.primjeniPostavkeButton = new System.Windows.Forms.Button();
             this.TopPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,7 +70,7 @@
             // interfaceLable
             // 
             this.interfaceLable.AutoSize = true;
-            this.interfaceLable.Location = new System.Drawing.Point(68, 12);
+            this.interfaceLable.Location = new System.Drawing.Point(21, 16);
             this.interfaceLable.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.interfaceLable.Name = "interfaceLable";
             this.interfaceLable.Size = new System.Drawing.Size(207, 17);
@@ -79,7 +80,7 @@
             // interfaceComboBox
             // 
             this.interfaceComboBox.FormattingEnabled = true;
-            this.interfaceComboBox.Location = new System.Drawing.Point(316, 8);
+            this.interfaceComboBox.Location = new System.Drawing.Point(231, 13);
             this.interfaceComboBox.Margin = new System.Windows.Forms.Padding(4);
             this.interfaceComboBox.Name = "interfaceComboBox";
             this.interfaceComboBox.Size = new System.Drawing.Size(140, 25);
@@ -286,9 +287,27 @@
             this.ipv4PrefixText.Location = new System.Drawing.Point(270, 115);
             this.ipv4PrefixText.Name = "ipv4PrefixText";
             this.ipv4PrefixText.Size = new System.Drawing.Size(22, 18);
-            this.ipv4PrefixText.TabIndex = 15;
+            this.ipv4PrefixText.TabIndex = 7;
             this.ipv4PrefixText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ipv4PrefixText.KeyUp += new System.Windows.Forms.KeyEventHandler(this.ipv4PrefixText_KeyUp);
+            // 
+            // primjeniPostavkeButton
+            // 
+            this.primjeniPostavkeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.primjeniPostavkeButton.BackColor = System.Drawing.Color.PaleGreen;
+            this.primjeniPostavkeButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.primjeniPostavkeButton.FlatAppearance.BorderColor = System.Drawing.Color.LimeGreen;
+            this.primjeniPostavkeButton.FlatAppearance.BorderSize = 2;
+            this.primjeniPostavkeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.primjeniPostavkeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LightGreen;
+            this.primjeniPostavkeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.primjeniPostavkeButton.Location = new System.Drawing.Point(524, 288);
+            this.primjeniPostavkeButton.Name = "primjeniPostavkeButton";
+            this.primjeniPostavkeButton.Size = new System.Drawing.Size(119, 49);
+            this.primjeniPostavkeButton.TabIndex = 15;
+            this.primjeniPostavkeButton.Text = "Primjeni promjene";
+            this.primjeniPostavkeButton.UseVisualStyleBackColor = false;
+            this.primjeniPostavkeButton.Click += new System.EventHandler(this.primjeniPostavkeButton_Click);
             // 
             // IpKonfiguracijaForm
             // 
@@ -296,6 +315,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(707, 385);
+            this.Controls.Add(this.primjeniPostavkeButton);
             this.Controls.Add(this.ipv4PrefixText);
             this.Controls.Add(this.defaultGatewayLabel);
             this.Controls.Add(this.DhcpCheckBox);
@@ -319,6 +339,7 @@
             this.Controls.Add(this.AdressDotsLabel1);
             this.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.MinimumSize = new System.Drawing.Size(442, 237);
             this.Name = "IpKonfiguracijaForm";
             this.Text = "IpKonfiguracijaForm";
             this.Load += new System.EventHandler(this.IpKonfiguracijaForm_Load);
@@ -353,5 +374,6 @@
         private TextBox defaultGatewayText3;
         private TextBox defaultGatewayText4;
         private TextBox ipv4PrefixText;
+        private Button primjeniPostavkeButton;
     }
 }

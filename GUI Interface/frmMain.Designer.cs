@@ -80,8 +80,10 @@
             // Alati_IpKonfiguracija_IPv4
             // 
             this.Alati_IpKonfiguracija_IPv4.Name = "Alati_IpKonfiguracija_IPv4";
+            this.Alati_IpKonfiguracija_IPv4.ShortcutKeyDisplayString = "Ctrl+4";
+            this.Alati_IpKonfiguracija_IPv4.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D4)));
             this.Alati_IpKonfiguracija_IPv4.Size = new System.Drawing.Size(180, 22);
-            this.Alati_IpKonfiguracija_IPv4.Text = "IPv4";
+            this.Alati_IpKonfiguracija_IPv4.Text = "IPv&4";
             this.Alati_IpKonfiguracija_IPv4.Click += new System.EventHandler(this.Alati_IpKonfiguracija_IPv4_Click);
             // 
             // toolStripSeparator1
@@ -92,9 +94,12 @@
             // Alati_IpKonfiguracija_IPv6
             // 
             this.Alati_IpKonfiguracija_IPv6.Name = "Alati_IpKonfiguracija_IPv6";
+            this.Alati_IpKonfiguracija_IPv6.ShortcutKeyDisplayString = "Ctrl+6";
+            this.Alati_IpKonfiguracija_IPv6.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D6)));
             this.Alati_IpKonfiguracija_IPv6.Size = new System.Drawing.Size(180, 22);
-            this.Alati_IpKonfiguracija_IPv6.Text = "IPv6";
+            this.Alati_IpKonfiguracija_IPv6.Text = "IPv&6";
             this.Alati_IpKonfiguracija_IPv6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.Alati_IpKonfiguracija_IPv6.Click += new System.EventHandler(this.Alati_IpKonfiguracija_IPv6_Click);
             // 
             // alati_ReloadMrezniAdapteriMenuItem
             // 
