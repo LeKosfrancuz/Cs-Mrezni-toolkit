@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Reflection.Metadata;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -226,6 +227,26 @@ namespace MrezneFunkcije.IP
 
         }
 
+        public static int GetInterfaceId (string InterfaceName = "")
+        {
+            string CMDoutput = CMD.Command($"netsh interface ipv6 show interfaces \"{InterfaceName}\"");
+            int nBSN = -1; // Jer je zadnji char uvijek \n
+            foreach (char c in CMDoutput)
+                if (c == '\n') nBSN++;
+
+            if (InterfaceName == "")
+                return 0;
+
+            string[] adapterAtributes = CMDoutput.Split("\r\n");
+            for (int i = 0; i < adapterAtributes.Length; i++)
+                if (adapterAtributes[i].Contains("IfIndex"))
+                {
+                    return int.Parse(adapterAtributes[i].Split(": ")[1].Split("\r")[0]);
+                }
+
+            return 0;
+        }
+
         public static string GetMask(string imeAdaptera = "", int verzijaProtokola = 4)
         {
             string komanda;
@@ -435,6 +456,153 @@ namespace MrezneFunkcije.IP
             return 0;
         }
 
+        public static string GetIPv6ForAdapter(string InterfaceName) 
+        {
+            string output = CMD.Command($"netsh interface ipv6 show addresses \"{InterfaceName}\"");
+
+            return output;
+        }
+
+        public static string GetIPv6GatewayForAdapter(string InterfaceName, bool displayHeader = true)
+        {
+            string output = CMD.Command($"netsh interface ipv6 show route | findstr /C:\" {GetInterfaceId(InterfaceName)} \"");
+            
+            if (displayHeader)
+            output = "Publish  Type      Met  Prefix                      Idx  Gateway/Interface Name\r\n--------  -------     ----  -----------------------  ---  ------------------------\r\n" + output;
+
+            return output;
+        }
+
+        public static string GetIPv6DNSForAdapter(string InterfaceName)
+        {
+            string output = CMD.Command($"netsh interface ipv6 show dnsserver \"{InterfaceName}\"");
+
+            return output;
+        }
+
+        public static int SetIPv6(string InterfaceName, string IPv6, bool Add, string? type="unicast", string? validlife = "infinite", string? preferedlife = "infinite", string? store = "persistent", string? skip = "false")
+        {
+            string addRemove = Add ? "add" : "delete";
+            if (type == null) type = "";
+            if (validlife == null) validlife = "";
+            if (preferedlife == null) preferedlife = "";
+            if (store == null) store = "";
+            if (skip == null) skip = "";
+
+            string CMDOutput = CMD.Command($"netsh interface ipv6 {addRemove} address \"{InterfaceName}\" {IPv6} {type} {validlife} {preferedlife} {store} {skip}");
+
+            if (CMDOutput.Contains("Run as admin")) return -1;
+            if (CMDOutput.Contains("The object already exists.")) return -2;
+            if (CMDOutput.Contains("The parameter is incorrect.")) return -3;
+            if (CMDOutput.Contains("It should be a valid IPv6 address.")) return -4;
+
+            return 0;
+        }
+
+        public static (int, int) GetPrecedenceLabelIPv6(string IPv6)
+        {
+            string CMDOutput = CMD.Command($"netsh interface ipv6 show prefixpolicies | findstr /C:\"{IPv6}\"");
+
+
+            return (0, 0);
+        }
+
+        public static double ConvertTimeFieldToDoubleSekunde(decimal dani, decimal sati, decimal minute, decimal sekunde, bool infinite)
+        {
+            if (infinite) return double.PositiveInfinity;
+
+            double rjesenje = (double)(dani * 24 * 60 * 60 + sati * 60 * 60 + minute * 60 + sekunde);
+
+            return rjesenje;
+        }
+
+        public static bool IsValidLifeSpanIPv6(double ValidTime, double PreferedTime)
+        {
+            if (ValidTime == double.NaN || PreferedTime == double.NaN) return false;
+
+            if (PreferedTime > ValidTime) return false;
+            
+            return true;
+        }
+
+        public static int SetDefaultGatewayV6(string InterfaceName, string IPv6, bool Add) 
+        {
+            string addRemove = Add ? "add" : "delete";
+            string CMDOutput = CMD.Command($"netsh interface ipv6 {addRemove} route ::/0 \"{InterfaceName}\" {IPv6}");
+
+            if (CMDOutput.Contains("Ok.")) return 0;
+            
+            if (CMDOutput.Contains("Run as admin")) return -1;
+
+            if (CMDOutput.Contains("It should be a valid IPv6 address.")) return -3;
+            return -2;
+        }
+
+        public static int SetDnsIPv6(string InterfaceName, string IPv6, bool Add, string? prefix) 
+        {
+            string addRemove = Add ? "add" : "delete";
+
+            string prefixNum = "";
+            if (prefix != null)
+            prefixNum = prefix.Split("/")[1];
+
+            string CMDOutput = CMD.Command($"netsh interface ipv6 {addRemove} dns \"{InterfaceName}\" {IPv6} {prefixNum} no");
+
+            if (CMDOutput.Contains("Run as admin")) return -1;
+            if (CMDOutput.Contains("DNS server is incorrect")) return -2;
+            if (CMDOutput.Contains("It should be a valid IPv6 address.")) return -3;
+
+            return 0;
+        }
+
+        public static string GetCommpresedIPv6(string IPv6)
+        {
+            string[] ipSplit = IPv6.Split(":");
+
+            if (ipSplit.Length != 8) return "";
+            if (ipSplit[7] == "") return "";
+
+            int brojacNula = 0;
+            int maxNula = 0;
+            int indexZavrsne = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                int temp;
+                try
+                {
+                    temp = int.Parse(ipSplit[i], System.Globalization.NumberStyles.HexNumber);
+                } catch (FormatException) { return ""; }
+                ipSplit[i] = temp.ToString("x");
+            }
+
+
+            IPv6 = "";
+            for (int i = 0; i < ipSplit.Length; i++)
+            {
+                if (i != 0) IPv6 += ":";
+                IPv6 += ipSplit[i];
+            }
+
+            return IPAddress.Parse(IPv6).ToString();
+        }
+
+        public static string GetUnCommpresedIPv6(string IPv6)
+        {
+            IPAddress adresa;
+            if (IPAddress.TryParse(IPv6, out adresa))
+            {
+                if (adresa.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6)
+                {
+                    var bytes = adresa.GetAddressBytes();
+                    var unCommpresedAddress = string.Format("{0:x2}{1:x2}:{2:x2}{3:x2}:{4:x2}{5:x2}:{6:x2}{7:x2}:{8:x2}{9:x2}:{10:x2}{11:x2}:{12:x2}{13:x2}:{14:x2}{15:x2}", bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7], bytes[8], bytes[9], bytes[10], bytes[11], bytes[12], bytes[13], bytes[14], bytes[15]);
+                    Console.WriteLine(unCommpresedAddress);
+
+                    return unCommpresedAddress;
+                }
+            }
+
+            return "";
+        }
 
         public static T DeepCopy<T>(T item)
         {
@@ -449,9 +617,37 @@ namespace MrezneFunkcije.IP
             return result;
 #pragma warning restore SYSLIB0011
         }
+
+        public static void OpenUrl(string url) 
+            //Funkcija kopirana sa https://stackoverflow.com/questions/4580263/how-to-open-in-default-browser-in-c-sharp
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                // hack because of this: https://github.com/dotnet/corefx/issues/10361
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
     }
-
-
 }
 
 

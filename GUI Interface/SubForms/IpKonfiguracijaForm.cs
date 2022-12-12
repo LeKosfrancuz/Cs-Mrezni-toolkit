@@ -141,7 +141,7 @@ namespace GUI_Interface
             if (gateway == "...") gateway = "";
 
             if ((IP_konfiguracija.IsMaskRange(ip) && IP_konfiguracija.IsMask(mask) && (IP_konfiguracija.IsMaskRange(gateway) || gateway == "")
-                && mask == IP_konfiguracija.ConvertPrefixToMask(ipv4PrefixText.Text)) || DhcpCheckBox.Checked) 
+                && mask == IP_konfiguracija.ConvertPrefixToMask(ipv4PrefixText.Text)) || DhcpCheckBox.Checked)
             {
                 MessageBoxButtons gumbi = MessageBoxButtons.YesNo;
                 MessageBoxDefaultButton odabranGumb = MessageBoxDefaultButton.Button1;
@@ -152,13 +152,13 @@ namespace GUI_Interface
                     return;
 
                 int interfaceIndex = this.interfaceComboBox.SelectedIndex;
-                
+
                 int rezultat;
 
                 if (DhcpCheckBox.Checked)
-                rezultat = IP_konfiguracija.SetDHCPv4(MrezniAdapteri[interfaceIndex].AdapterName);
+                    rezultat = IP_konfiguracija.SetDHCPv4(MrezniAdapteri[interfaceIndex].AdapterName);
                 else
-                rezultat = IP_konfiguracija.SetIPv4(MrezniAdapteri[interfaceIndex].AdapterName, ip, mask, gateway);
+                    rezultat = IP_konfiguracija.SetIPv4(MrezniAdapteri[interfaceIndex].AdapterName, ip, mask, gateway);
 
                 if (rezultat == -1)
                 {
@@ -183,23 +183,21 @@ namespace GUI_Interface
                         MrezniAdapteri[interfaceIndex].Ipv4Adresa = ip;
                         MrezniAdapteri[interfaceIndex].MrezniPrefixV4 = IP_konfiguracija.ConvertMaskToPrefix(mask);
                         MrezniAdapteri[interfaceIndex].MreznaMaskaV4 = mask;
-                    } else
+                    }
+                    else
                     {
                         MrezniAdapteri = IP_konfiguracija.GetListOfAdapters();
                         Thread upozoriNaAdaptere = new Thread(upozoriOsvjezitAdapter);
                         upozoriNaAdaptere.Start();
                     }
-                }
 
-                if (MrezniAdapteri[interfaceIndex].DhcpEnabled == DhcpCheckBox.Checked && MrezniAdapteri[interfaceIndex].DefaultGatewayV4 == gateway && MrezniAdapteri[interfaceIndex].MreznaMaskaV4 == mask
-                    && MrezniAdapteri[interfaceIndex].Ipv4Adresa == ip && MrezniAdapteri[interfaceIndex].MrezniPrefixV4 == IP_konfiguracija.ConvertMaskToPrefix(mask)) 
-                {
                     gumbi = MessageBoxButtons.OK;
                     odabranGumb = MessageBoxDefaultButton.Button1;
                     slikica = MessageBoxIcon.Information;
                     MessageBox.Show("Postavljanje mrežnih postavki uspješno!", "Uspjeh", gumbi, slikica, odabranGumb);
                 }
-            } else
+            }
+            else
             {
                 MessageBoxButtons gumbi = MessageBoxButtons.OK;
                 MessageBoxDefaultButton odabranGumb = MessageBoxDefaultButton.Button1;

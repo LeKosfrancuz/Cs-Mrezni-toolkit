@@ -9,6 +9,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GUI_Interface.SubForms;
 using MrezneFunkcije.Elevate;
 using MrezneFunkcije.IP;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -61,6 +62,7 @@ public partial class frmMain : Form
         progressBar.Visible = false;
         progressBarLable.Visible = false;
 
+        this.TopMost = false;
         //OtvoriSubForm(new IpKonfiguracijaForm(progressBarStrip));
     }
 
@@ -107,5 +109,11 @@ public partial class frmMain : Form
     {
         OtvoriSubForm(new IpKonfiguracijaV6Form(MrezniAdapteri, progressBar, progressBarLable));
         naslovnaGrupaZaSubForms.Text = Alati_IpKonfiguracija_IPv6.Text + " Konfiguracija";
+    }
+
+    private void alati_IPv6Zipper_Click(object sender, EventArgs e)
+    {
+        OtvoriSubForm(new KompresorIPv6AdresaForm());
+        naslovnaGrupaZaSubForms.Text = "Kalkulator za (De)Kompresiranje IPv6 Adresa";
     }
 }

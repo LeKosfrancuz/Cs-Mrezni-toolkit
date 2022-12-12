@@ -286,6 +286,7 @@
             this.ipv4PrefixText.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ipv4PrefixText.Location = new System.Drawing.Point(270, 115);
             this.ipv4PrefixText.Name = "ipv4PrefixText";
+            this.ipv4PrefixText.PlaceholderText = "/#";
             this.ipv4PrefixText.Size = new System.Drawing.Size(22, 18);
             this.ipv4PrefixText.TabIndex = 7;
             this.ipv4PrefixText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
